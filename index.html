@@ -10,6 +10,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Noto Sans KR', sans-serif; background: #F1F5F9; }
 
+/* ═══ 시작 화면 ═══ */
 .welcome-wrap { min-height:100vh; background:linear-gradient(135deg,#667EEA,#764BA2); display:flex; align-items:center; justify-content:center; padding:20px; }
 .welcome-box { background:#fff; border-radius:24px; padding:48px 36px; max-width:560px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.15); }
 .welcome-box h1 { font-size:24px; font-weight:800; color:#1E293B; text-align:center; margin-bottom:6px; }
@@ -22,9 +23,42 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F1F5F9; }
 .id-label { display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px; }
 .id-input { width:100%; padding:11px 14px; border:2px solid #E2E8F0; border-radius:10px; font-size:15px; outline:none; font-family:inherit; }
 .id-input:focus { border-color:#818CF8; }
-.start-btn { width:100%; padding:14px; background:linear-gradient(135deg,#667EEA,#764BA2); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; margin-top:20px; font-family:inherit; }
+.start-btn { width:100%; padding:14px; background:linear-gradient(135deg,#667EEA,#764BA2); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; margin-top:20px; font-family:inherit; transition:transform .1s; }
 .start-btn:active { transform:scale(.98); }
 
+/* ═══ 튜토리얼 화면 ═══ */
+.tutorial-wrap { min-height:100vh; background:linear-gradient(135deg,#667EEA,#764BA2); display:flex; align-items:center; justify-content:center; padding:20px; }
+.tutorial-box { background:#fff; border-radius:24px; padding:40px 32px; max-width:640px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.15); }
+.tutorial-box h2 { font-size:20px; font-weight:800; color:#1E293B; text-align:center; margin-bottom:4px; }
+.tutorial-box .tsub { font-size:13px; color:#64748B; text-align:center; margin-bottom:24px; }
+.tut-steps { display:flex; flex-direction:column; gap:14px; margin-bottom:24px; }
+.tut-step { display:flex; gap:14px; align-items:flex-start; background:#F8FAFC; border-radius:14px; padding:16px; border:1px solid #E2E8F0; }
+.tut-step .icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; font-weight:800; color:#fff; }
+.tut-step .body { flex:1; }
+.tut-step .body h4 { font-size:14px; font-weight:700; color:#1E293B; margin-bottom:3px; }
+.tut-step .body p { font-size:12px; color:#64748B; line-height:1.7; }
+.tut-demo { border:2px solid #E2E8F0; border-radius:14px; padding:16px; margin-bottom:18px; background:#FAFBFC; }
+.tut-demo-title { font-size:11px; font-weight:700; color:#94A3B8; margin-bottom:10px; text-align:center; letter-spacing:1px; text-transform:uppercase; }
+.tut-demo-layout { display:flex; gap:12px; }
+.tut-demo-left { width:38%; }
+.tut-demo-right { width:62%; }
+.tut-label { font-size:10px; font-weight:700; color:#64748B; margin-bottom:5px; }
+.tut-mini-card { background:#fff; border:1px solid #E8ECF0; border-radius:6px; padding:5px 7px; font-size:10px; color:#475569; margin-bottom:3px; line-height:1.4; }
+.tut-mini-card.drag-demo { border:1.5px dashed #818CF8; background:#EEF2FF; color:#667EEA; position:relative; }
+.tut-mini-card.drag-demo::after { content:'→'; position:absolute; right:-16px; top:50%; transform:translateY(-50%); font-size:13px; color:#818CF8; font-weight:700; }
+.tut-mini-group { border:1.5px solid #818CF8; border-radius:8px; padding:7px; border-top:3px solid #818CF8; margin-bottom:7px; background:#fff; }
+.tut-mini-group-name { font-size:10px; font-weight:700; color:#3730A3; margin-bottom:3px; display:flex; align-items:center; gap:3px; }
+.tut-mini-group .tut-mini-card { border-color:#C7D2FE; background:#EEF2FF; }
+.tut-mini-group.g2 { border-color:#F59E0B; border-top-color:#F59E0B; }
+.tut-mini-group.g2 .tut-mini-card { border-color:#FDE68A; background:#FEF3C7; }
+.tut-mini-group.g2 .tut-mini-group-name { color:#92400E; }
+.tut-tip { background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; padding:12px 14px; margin-bottom:20px; }
+.tut-tip p { font-size:12px; color:#92400E; line-height:1.6; }
+.tut-tip strong { color:#78350F; }
+.tut-start-btn { width:100%; padding:14px; background:linear-gradient(135deg,#22C55E,#16A34A); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; font-family:inherit; transition:transform .1s; }
+.tut-start-btn:active { transform:scale(.98); }
+
+/* ═══ 소팅 화면 ═══ */
 .header { background:#fff; border-bottom:1px solid #E2E8F0; padding:10px 20px; position:sticky; top:0; z-index:100; }
 .header-inner { max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
 .header-left { font-size:14px; font-weight:700; color:#1E293B; }
@@ -37,6 +71,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F1F5F9; }
 .submit-btn { padding:8px 18px; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; }
 .submit-btn.active { background:linear-gradient(135deg,#22C55E,#16A34A); color:#fff; }
 .submit-btn.disabled { background:#E2E8F0; color:#94A3B8; cursor:not-allowed; }
+.name-alert-bar { display:none; background:#FEF2F2; border-bottom:1px solid #FECACA; padding:8px 20px; font-size:12px; color:#991B1B; text-align:center; font-weight:600; }
 
 .main { max-width:1400px; margin:0 auto; padding:20px; display:flex; gap:20px; min-height:calc(100vh - 56px); }
 .left-panel { width:300px; flex-shrink:0; }
@@ -57,9 +92,9 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F1F5F9; }
 .groups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
 .group-box { background:#fff; border-radius:12px; padding:14px; box-shadow:0 1px 3px rgba(0,0,0,.06); border-top:3px solid #818CF8; transition:box-shadow .15s; min-height:100px; }
 .group-box.drag-over { box-shadow:0 0 0 2px #818CF8; }
-.group-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-.group-name { font-size:13px; font-weight:700; cursor:pointer; flex:1; }
-.group-name-hint { font-size:10px; color:#94A3B8; margin-left:6px; }
+.group-box.unnamed { border-top-color:#EF4444 !important; box-shadow:0 0 0 1.5px #FECACA; }
+.group-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.group-name { font-size:13px; font-weight:700; cursor:pointer; flex:1; display:flex; align-items:center; gap:4px; }
 .group-name-input { flex:1; padding:3px 7px; border-radius:5px; font-size:13px; font-weight:600; outline:none; font-family:inherit; }
 .group-tag { font-size:10px; font-weight:600; padding:2px 7px; border-radius:10px; }
 .group-del { background:none; border:none; cursor:pointer; font-size:13px; color:#94A3B8; padding:0; margin-left:6px; }
@@ -68,6 +103,14 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F1F5F9; }
 .group-card .num { font-size:9px; margin-right:3px; }
 .no-groups { background:#fff; border-radius:14px; padding:44px; text-align:center; border:2px dashed #CBD5E1; }
 .no-groups p { font-size:14px; color:#64748B; }
+
+/* 그룹 이름 관련 */
+.group-name-warning { font-size:10px; color:#EF4444; margin-bottom:6px; display:flex; align-items:center; gap:3px; font-weight:600; }
+.tip-trigger { position:relative; cursor:help; display:inline-flex; align-items:center; }
+.tip-icon { width:14px; height:14px; border-radius:50%; background:#CBD5E1; color:#475569; font-size:9px; display:inline-flex; align-items:center; justify-content:center; font-weight:800; flex-shrink:0; }
+.tip-popup { display:none; position:absolute; left:50%; top:22px; transform:translateX(-50%); background:#1E293B; color:#fff; padding:8px 11px; border-radius:8px; font-size:11px; line-height:1.6; width:240px; z-index:50; box-shadow:0 4px 14px rgba(0,0,0,.25); font-weight:400; text-align:left; }
+.tip-popup::before { content:''; position:absolute; top:-5px; left:50%; transform:translateX(-50%); border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:5px solid #1E293B; }
+.tip-trigger:hover .tip-popup { display:block; }
 
 .mobile-menu { position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:2px solid #E2E8F0; padding:14px; z-index:200; box-shadow:0 -4px 20px rgba(0,0,0,.1); }
 .mobile-menu .label { font-size:12px; color:#64748B; margin-bottom:8px; }
@@ -91,18 +134,17 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F1F5F9; }
   .left-panel { width:100%; }
   .unsorted-box { position:static; max-height:none; }
   .groups-grid { grid-template-columns:1fr; }
+  .tut-demo-layout { flex-direction:column; }
+  .tut-demo-left, .tut-demo-right { width:100%; }
+  .tut-mini-card.drag-demo::after { display:none; }
 }
 </style>
 </head>
 <body>
 
 <script>
-// ══════════════════════════════════════════════
-// ⚠️ 아래 URL을 본인의 Apps Script 웹앱 URL로 교체하세요
-// ══════════════════════════════════════════════
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDzAHetVgdi0i4FHCR2f_q_UtUYN18x2xy8afgaz7604QNb0dV8iyj42rAJ38PjjLb/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4vpYwWB1HmTWLKS1W13wO3eyBQgE2VKUgkRcNXEYwO4TE3tC17JoBCqVtmvFeaEV6/exec";
 
-// ⚠️ 진술문이 확정되면 아래 배열을 교체하세요
 const STATEMENTS = [
   "새벽에도 언제든 이야기할 수 있어서 좋았다",
   "AI가 내 말을 요약해줘서 내가 뭘 느끼는지 명확해졌다",
@@ -147,21 +189,32 @@ const COLORS = [
 let participantId="", unsorted=[], groups=[], dragCardId=null, dragSource=null;
 let selectedCardId=null, selectedSource=null, selectedGroupIdx=null, editingGroupIdx=null;
 
+function isDefaultName(n){ return /^그룹\s*\d+$/.test(n.trim()); }
+function hasUnnamed(){ return groups.some(g=>isDefaultName(g.name)); }
+function unnamedCount(){ return groups.filter(g=>isDefaultName(g.name)).length; }
+
 function init(){
   const a=STATEMENTS.map((t,i)=>({id:i+1,text:t}));
   for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   unsorted=a; groups=[]; render();
 }
 function showScreen(n){
-  document.getElementById("app").dataset.screen=n;
-  ["welcome","sorting","done","loading"].forEach(s=>{
-    document.getElementById(s+"-screen").style.display=s===n?(s==="welcome"||s==="done"||s==="loading"?"flex":"block"):"none";
+  ["welcome","tutorial","sorting","done","loading"].forEach(s=>{
+    const el=document.getElementById(s+"-screen");
+    if(s===n){
+      el.style.display=(s==="sorting")?"block":"flex";
+    } else {
+      el.style.display="none";
+    }
   });
-  if(n==="sorting")render();
+  if(n==="sorting") render();
 }
-function startSorting(){
+function goToTutorial(){
   participantId=document.getElementById("pid-input").value.trim();
   if(!participantId){alert("참여자 ID를 입력해주세요.");return;}
+  showScreen("tutorial");
+}
+function startSorting(){
   init(); showScreen("sorting");
 }
 function render(){
@@ -170,30 +223,57 @@ function render(){
   const pf=document.getElementById("progress-fill");
   pf.style.width=pct+"%"; pf.style.background=pct===100?"#22C55E":"linear-gradient(90deg,#667EEA,#764BA2)";
   const pt=document.getElementById("progress-text"); pt.textContent=sorted+"/"+total; pt.style.color=pct===100?"#22C55E":"#64748B";
+  
+  const canSubmit = unsorted.length===0 && groups.length>=2 && !hasUnnamed() && !groups.some(g=>g.cards.length===0);
   const sb=document.getElementById("submit-btn");
-  if(unsorted.length===0&&groups.length>=2){sb.className="submit-btn active";sb.disabled=false;}
-  else{sb.className="submit-btn disabled";sb.disabled=true;}
+  sb.className = canSubmit ? "submit-btn active" : "submit-btn disabled";
+  sb.disabled = !canSubmit;
 
+  // 미분류 카드
   const ul=document.getElementById("unsorted-list");
   ul.innerHTML=unsorted.length===0?'<div class="empty-msg">모든 카드를 분류했습니다! 🎉</div>':
     unsorted.map(c=>`<div class="card ${selectedCardId===c.id?'selected':''}" draggable="true" ondragstart="onDragStart(${c.id},'unsorted')" onclick="onCardClick(${c.id},'unsorted')"><span class="num">#${c.id}</span>${c.text}</div>`).join("");
   document.getElementById("unsorted-count").textContent=unsorted.length+"개 남음";
 
+  // 그룹 영역
   const ga=document.getElementById("groups-area");
   if(groups.length===0){
     ga.innerHTML='<div class="no-groups"><div style="font-size:36px;margin-bottom:10px">👆</div><p>위의 <strong>"+ 새 그룹 만들기"</strong> 버튼을 눌러<br>그룹을 만든 후, 왼쪽 카드를 끌어서 넣으세요.</p></div>';
   } else {
     ga.innerHTML='<div class="groups-grid">'+groups.map((g,gi)=>{
       const c=COLORS[gi%COLORS.length];
-      const nh=editingGroupIdx===gi
-        ?`<input class="group-name-input" style="border:1px solid ${c.border};color:${c.text};background:${c.bg}" value="${g.name}" onblur="finishRename(${gi},this.value)" onkeydown="if(event.key==='Enter')finishRename(${gi},this.value)" autofocus>`
-        :`<span class="group-name" style="color:${c.text}" onclick="startRename(${gi})">${g.name}<span class="group-name-hint">✏️</span></span>`;
+      const unnamed=isDefaultName(g.name);
+      
+      // 그룹 이름 영역
+      const tooltipHtml=`<span class="tip-trigger"><span class="tip-icon">?</span><span class="tip-popup">이 그룹에 속한 카드들의 <strong>공통된 의미</strong>를 짧게 요약해 주세요.<br>예: "정서적 안전감", "자기 이해", "접근성"</span></span>`;
+      
+      let nh;
+      if(editingGroupIdx===gi){
+        nh=`<input class="group-name-input" style="border:1px solid ${c.border};color:${c.text};background:${c.bg}" value="${unnamed?'':g.name}" placeholder="공통 의미를 짧게 요약" onblur="finishRename(${gi},this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();finishRename(${gi},this.value)}" autofocus>`;
+      } else {
+        const nameColor = unnamed ? '#EF4444' : c.text;
+        nh=`<span class="group-name" style="color:${nameColor}" onclick="startRename(${gi})">${g.name} ✏️ ${tooltipHtml}</span>`;
+      }
+      
+      const warningHtml=unnamed?`<div class="group-name-warning">⚠️ 그룹 이름을 붙여주세요 — 클릭하여 수정</div>`:"";
+      
       const ch=g.cards.length===0
         ?`<div class="group-empty" style="background:${c.bg};border-color:${c.border}">여기에 카드를 놓으세요</div>`
         :g.cards.map(card=>`<div class="group-card ${selectedCardId===card.id?'selected':''}" draggable="true" style="color:#475569" ondragstart="onDragStart(${card.id},'group',${gi})" onclick="onCardClick(${card.id},'group',${gi})"><span class="num" style="color:${c.border}">#${card.id}</span>${card.text}</div>`).join("");
-      return `<div class="group-box" style="border-top-color:${c.border}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="this.classList.remove('drag-over');onDropGroup(${gi})"><div class="group-header">${nh}<span class="group-tag" style="background:${c.tag};color:${c.text}">${g.cards.length}</span><button class="group-del" onclick="removeGroup(${gi})" title="그룹 삭제">✕</button></div>${ch}</div>`;
+      
+      return `<div class="group-box ${unnamed?'unnamed':''}" style="border-top-color:${unnamed?'#EF4444':c.border}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="this.classList.remove('drag-over');onDropGroup(${gi})"><div class="group-header">${nh}<span class="group-tag" style="background:${c.tag};color:${c.text}">${g.cards.length}</span><button class="group-del" onclick="removeGroup(${gi})" title="그룹 삭제">✕</button></div>${warningHtml}${ch}</div>`;
     }).join("")+'</div>';
   }
+
+  // 상단 경고 바
+  const alertBar=document.getElementById("name-alert");
+  if(unsorted.length===0 && hasUnnamed()){
+    alertBar.style.display="block";
+    alertBar.textContent="⚠️ 이름이 붙지 않은 그룹이 "+unnamedCount()+"개 있습니다. 모든 그룹에 이름을 붙여야 제출할 수 있습니다.";
+  } else {
+    alertBar.style.display="none";
+  }
+
   renderMobileMenu();
 }
 function renderMobileMenu(){
@@ -225,12 +305,18 @@ function moveCard(id,from,to){
 function findCard(id){let c=unsorted.find(x=>x.id===id);if(c)return c;for(const g of groups){c=g.cards.find(x=>x.id===id);if(c)return c;}return null;}
 function addGroup(){groups.push({name:"그룹 "+(groups.length+1),cards:[]});render();}
 function startRename(i){editingGroupIdx=i;render();}
-function finishRename(i,v){groups[i].name=v||groups[i].name;editingGroupIdx=null;render();}
+function finishRename(i,v){
+  v=v.trim();
+  if(!v || isDefaultName(v)){groups[i].name="그룹 "+(i+1);}
+  else{groups[i].name=v;}
+  editingGroupIdx=null;render();
+}
 function removeGroup(i){unsorted=unsorted.concat(groups[i].cards);groups.splice(i,1);render();}
 function submitData(){
   if(unsorted.length>0){alert("아직 분류하지 않은 카드가 있습니다.");return;}
   if(groups.length<2){alert("최소 2개 이상의 그룹으로 분류해주세요.");return;}
   if(groups.some(g=>g.cards.length===0)){alert("비어있는 그룹이 있습니다.");return;}
+  if(hasUnnamed()){alert("모든 그룹에 이름을 붙여주세요.\n그룹 이름 부분을 클릭하면 수정할 수 있습니다.");return;}
   const payload={participantId,timestamp:new Date().toISOString(),groups:groups.map(g=>({name:g.name,cards:g.cards.map(c=>({id:c.id,text:c.text}))}))};
   document.getElementById("done-groups").textContent=groups.length;
   document.getElementById("done-cards").textContent=STATEMENTS.length;
@@ -242,7 +328,8 @@ function submitData(){
 document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
 </script>
 
-<div id="app" data-screen="welcome">
+<div id="app">
+  <!-- ═══ 1. 시작 화면 ═══ -->
   <div id="welcome-screen" class="welcome-wrap">
     <div class="welcome-box">
       <div style="text-align:center;font-size:44px;margin-bottom:14px">🧠</div>
@@ -258,16 +345,81 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
             <li>각 카드는 반드시 <strong>하나의 그룹에만</strong> 넣어주세요</li>
             <li>모든 카드를 하나의 그룹에 넣지 마세요</li>
             <li>그룹의 개수는 자유입니다 (보통 3~10개)</li>
-            <li>각 그룹에 <strong>이름</strong>을 붙여주세요</li>
+            <li>각 그룹에는 반드시 <strong>의미를 담은 이름</strong>을 붙여주세요</li>
           </ul>
         </div>
       </div>
       <label class="id-label">참여자 ID (연구자가 안내한 ID를 입력하세요)</label>
       <input type="text" id="pid-input" class="id-input" placeholder="예: P01">
-      <button class="start-btn" onclick="startSorting()">분류 시작하기 →</button>
+      <button class="start-btn" onclick="goToTutorial()">다음: 방법 안내 보기 →</button>
     </div>
   </div>
 
+  <!-- ═══ 2. 튜토리얼 화면 ═══ -->
+  <div id="tutorial-screen" class="tutorial-wrap" style="display:none">
+    <div class="tutorial-box">
+      <div style="text-align:center;font-size:36px;margin-bottom:8px">📖</div>
+      <h2>카드 분류 방법 안내</h2>
+      <p class="tsub">3단계로 진행됩니다. 아래를 읽고 시작해주세요.</p>
+
+      <div class="tut-steps">
+        <div class="tut-step">
+          <div class="icon" style="background:linear-gradient(135deg,#818CF8,#667EEA)">1</div>
+          <div class="body">
+            <h4>그룹 만들기</h4>
+            <p><strong>"+ 새 그룹 만들기"</strong> 버튼을 눌러 그룹을 만드세요.<br>그룹 수는 자유이며, 언제든 추가·삭제할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="tut-step">
+          <div class="icon" style="background:linear-gradient(135deg,#F59E0B,#D97706)">2</div>
+          <div class="body">
+            <h4>카드를 그룹에 넣기</h4>
+            <p>왼쪽의 카드를 <strong>끌어서(드래그)</strong> 오른쪽 그룹에 놓으세요.<br>모바일에서는 카드를 <strong>탭</strong>한 뒤 이동할 그룹을 선택하세요.<br>의미가 비슷하다고 느끼는 카드끼리 같은 그룹에 넣어주세요.</p>
+          </div>
+        </div>
+        <div class="tut-step">
+          <div class="icon" style="background:linear-gradient(135deg,#22C55E,#16A34A)">3</div>
+          <div class="body">
+            <h4>그룹 이름 붙이기 (필수)</h4>
+            <p>그룹 이름을 <strong>클릭</strong>하여, 그 그룹 카드들의 <strong>공통 의미를 짧게 요약</strong>한 이름으로 바꿔주세요.<br>모든 그룹에 이름을 붙여야 제출할 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 미니 데모 그림 -->
+      <div class="tut-demo">
+        <div class="tut-demo-title">▼ 이렇게 하시면 됩니다 ▼</div>
+        <div class="tut-demo-layout">
+          <div class="tut-demo-left">
+            <div class="tut-label">📦 미분류 카드</div>
+            <div class="tut-mini-card">AI와 대화 후 마음이 편해졌다</div>
+            <div class="tut-mini-card drag-demo">비용 없이 이용할 수 있어서 좋았다</div>
+            <div class="tut-mini-card">사람에게 못 할 이야기를 했다</div>
+          </div>
+          <div class="tut-demo-right">
+            <div class="tut-label">📂 그룹 영역</div>
+            <div class="tut-mini-group">
+              <div class="tut-mini-group-name">정서적 안전감 ✏️</div>
+              <div class="tut-mini-card">판단받지 않아서 솔직해질 수 있었다</div>
+              <div class="tut-mini-card">AI라서 오히려 편했다</div>
+            </div>
+            <div class="tut-mini-group g2">
+              <div class="tut-mini-group-name">접근성과 편리함 ✏️</div>
+              <div class="tut-mini-card">새벽에도 이야기할 수 있었다</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tut-tip">
+        <p>💡 <strong>정답은 없습니다.</strong> 본인이 느끼는 대로 자유롭게 분류하시면 됩니다. 소요시간은 약 15~20분입니다.</p>
+      </div>
+
+      <button class="tut-start-btn" onclick="startSorting()">분류 시작하기 →</button>
+    </div>
+  </div>
+
+  <!-- ═══ 3. 소팅 화면 ═══ -->
   <div id="sorting-screen" style="display:none">
     <div class="header"><div class="header-inner">
       <div class="header-left">🧠 카드 분류 <span>참여자: <span id="h-pid"></span></span></div>
@@ -276,6 +428,7 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
         <button id="submit-btn" class="submit-btn disabled" disabled onclick="submitData()">제출하기</button>
       </div>
     </div></div>
+    <div id="name-alert" class="name-alert-bar"></div>
     <div class="main">
       <div class="left-panel" ondragover="event.preventDefault()" ondrop="onDropUnsorted()">
         <div class="unsorted-box">
@@ -295,10 +448,12 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
     </div>
   </div>
 
+  <!-- ═══ 4. 로딩 화면 ═══ -->
   <div id="loading-screen" class="loading-overlay" style="display:none">
     <div class="loading-box"><div class="spinner"></div><p style="font-size:15px;font-weight:600;color:#334155">데이터를 전송하고 있습니다...</p><p style="font-size:12px;color:#94A3B8;margin-top:6px">잠시만 기다려주세요</p></div>
   </div>
 
+  <!-- ═══ 5. 완료 화면 ═══ -->
   <div id="done-screen" class="done-wrap" style="display:none">
     <div class="done-box">
       <div style="font-size:56px">✅</div>
