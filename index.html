@@ -349,7 +349,7 @@ function renderRating(){
     const text=STATEMENTS[id-1];
     const r=ratings[id]||{};
     const incomplete=(!r.importance||!r.uniqueness);
-    rows+=`<tr class="${incomplete?'':''}">`;
+    rows+=`<tr style="${incomplete?'background:#FEF2F2':''}">`;
     rows+=`<td><span class="num">#${id}</span>${text}</td>`;
     // 중요도
     rows+=`<td><div class="rating-radio">`;
@@ -380,16 +380,16 @@ function renderRating(){
     nextBtn.style.display="none";
     finalBtn.style.display="inline-block";
     if(allDone){finalBtn.className="final-btn";finalBtn.disabled=false;}
-    else{finalBtn.className="final-btn disabled";finalBtn.disabled=true;}
+    else{finalBtn.className="final-btn";finalBtn.disabled=false;}
   }else{
     nextBtn.style.display="inline-block";
     finalBtn.style.display="none";
     if(pageDone){nextBtn.className="next-btn";nextBtn.disabled=false;}
-    else{nextBtn.className="next-btn disabled";nextBtn.disabled=true;}
+    else{nextBtn.className="next-btn";nextBtn.disabled=false;}
   }
 }
 function ratingPrev(){if(ratingPage>0){ratingPage--;renderRating();window.scrollTo(0,0);}}
-function ratingNext(){if(isPageComplete()){ratingPage++;renderRating();window.scrollTo(0,0);}}
+function ratingNext(){if(isPageComplete()){ratingPage++;renderRating();window.scrollTo(0,0);}else{alert("빨간색으로 표시된 항목의 두 척도를 모두 체크해 주세요.");}}
 function submitAll(){
   if(!isAllRatingComplete()){alert("모든 진술문에 대해 두 척도를 평정해 주세요.");return;}
   // 데이터 구성
