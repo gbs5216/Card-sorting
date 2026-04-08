@@ -161,7 +161,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:#F1F5F9;}
 </head>
 <body>
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyOzVoEd8eP2a4AWlwuIN_pCCynp8MHuERCVyENibU-3Fvjgi-iZe9fHbni3ijsJTN3/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwejEJCinOaomYkBFKFsaqH3HZcqQY_SQziq24NgM8Lv8kdTD--pPNVrtH0gwytQ9Dj/exec";
 
 const STATEMENTS = [
   "새벽에도 언제든 이야기할 수 있어서 좋았다",
@@ -199,7 +199,7 @@ const COLORS=[
 const ITEMS_PER_PAGE = 10;
 
 let participantId="",unsorted=[],groups=[],dragCardId=null,dragSource=null;
-let selectedCardId=null,selectedSource=null,selectedGroupIdx=null,editingGroupIdx=null;
+let selectedCardId=null,selectedSource=null,selectedGroupIdx=null,editingGroupIdx=null,editingValue="";
 // 평정
 let ratings={};// {statementId: {importance:N, uniqueness:N}}
 let ratingOrder=[];// 무선배열된 진술문 ID
@@ -254,7 +254,7 @@ function render(){
       const c=COLORS[gi%COLORS.length];const unnamed=isDefaultName(g.name);
       const tooltipHtml=`<span class="tip-trigger"><span class="tip-icon">?</span><span class="tip-popup">이 그룹에 속한 카드들의 <strong>공통된 의미</strong>를 짧게 요약해 주세요.<br>예: "정서적 안전감", "자기 이해", "접근성"</span></span>`;
       let nh;
-      if(editingGroupIdx===gi){nh=`<input class="group-name-input" style="border:1px solid ${c.border};color:${c.text};background:${c.bg}" value="${unnamed?'':g.name}" placeholder="공통 의미를 짧게 요약" onblur="finishRename(${gi},this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();finishRename(${gi},this.value)}" autofocus>`;}
+      if(editingGroupIdx===gi){nh=`<input class="group-name-input" id="rename-input" style="border:1px solid ${c.border};color:${c.text};background:${c.bg}" value="${unnamed?'':g.name}" placeholder="공통 의미를 짧게 요약" oninput="editingValue=this.value" onblur="finishRename(${gi})" onkeydown="if(event.key==='Enter'){event.preventDefault();finishRename(${gi})}" autofocus>`;}
       else{nh=`<span class="group-name" style="color:${unnamed?'#EF4444':c.text}" onclick="startRename(${gi})">${g.name} ✏️</span>${tooltipHtml}`;}
       const warningHtml=unnamed?`<div class="group-name-warning">⚠️ 그룹 이름을 붙여주세요 — 클릭하여 수정</div>`:"";
       const ch=g.cards.length===0?`<div class="group-empty" style="background:${c.bg};border-color:${c.border}">여기에 카드를 놓으세요</div>`:g.cards.map(card=>`<div class="group-card ${selectedCardId===card.id?'selected':''}" draggable="true" style="color:#475569" ondragstart="onDragStart(${card.id},'group',${gi})" onclick="onCardClick(${card.id},'group',${gi})"><span class="num" style="color:${c.border}">#${card.id}</span>${card.text}</div>`).join("");
@@ -292,8 +292,8 @@ function moveCard(id,from,to){
 }
 function findCard(id){let c=unsorted.find(x=>x.id===id);if(c)return c;for(const g of groups){c=g.cards.find(x=>x.id===id);if(c)return c;}return null;}
 function addGroup(){groups.push({name:"그룹 "+(groups.length+1),cards:[]});render();}
-function startRename(i){editingGroupIdx=i;render();}
-function finishRename(i,v){if(editingGroupIdx===null)return;v=v.trim();if(!v||isDefaultName(v)){groups[i].name="그룹 "+(i+1);}else{groups[i].name=v;}editingGroupIdx=null;render();}
+function startRename(i){editingGroupIdx=i;editingValue=isDefaultName(groups[i].name)?'':groups[i].name;render();}
+function finishRename(i){if(editingGroupIdx===null)return;var v=editingValue.trim();if(!v||isDefaultName(v)){groups[i].name="그룹 "+(i+1);}else{groups[i].name=v;}editingGroupIdx=null;editingValue="";render();}
 function removeGroup(i){unsorted=unsorted.concat(groups[i].cards);groups.splice(i,1);render();}
 
 // 분류 완료 → 평정으로 이동
