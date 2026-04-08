@@ -143,7 +143,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F1F5F9; }
 <body>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4vpYwWB1HmTWLKS1W13wO3eyBQgE2VKUgkRcNXEYwO4TE3tC17JoBCqVtmvFeaEV6/exec";
+const GOOGLE_SCRIPT_URL = "여기에_Apps_Script_웹앱_URL을_붙여넣으세요";
 
 const STATEMENTS = [
   "새벽에도 언제든 이야기할 수 있어서 좋았다",
@@ -321,8 +321,10 @@ function submitData(){
   document.getElementById("done-groups").textContent=groups.length;
   document.getElementById("done-cards").textContent=STATEMENTS.length;
   showScreen("loading");
-  fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
-    .then(()=>showScreen("done"))
+  // Google Apps Script는 리다이렉트(302)를 거치므로 no-cors 필요
+  // Content-Type 헤더를 설정하지 않아야 no-cors에서 body가 정상 전송됨
+  fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",body:JSON.stringify(payload)})
+    .then(()=>{showScreen("done");})
     .catch(err=>{console.error(err);alert("전송 오류. 인터넷 확인 후 재시도해주세요.");showScreen("sorting");});
 }
 document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
