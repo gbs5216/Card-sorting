@@ -205,7 +205,7 @@ let ratings={};// {statementId: {importance:N, uniqueness:N}}
 let ratingOrder=[];// 무선배열된 진술문 ID
 let ratingPage=0;
 
-function isDefaultName(n){n=n.trim();return /^그룹\s*\d*$/.test(n)||/^\d+$/.test(n)||n.length<2;}
+function isDefaultName(n){return /^그룹\s*\d*$/.test(n.trim());}
 function hasUnnamed(){return groups.some(g=>isDefaultName(g.name));}
 function unnamedCount(){return groups.filter(g=>isDefaultName(g.name)).length;}
 
