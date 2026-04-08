@@ -161,7 +161,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:#F1F5F9;}
 </head>
 <body>
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwl6bpX9Pd4FRktYPpLR3aVu6F9fvz4yUvjrHEpljQfP575n1EFGBL1KrqDBVmrYvtI/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyOzVoEd8eP2a4AWlwuIN_pCCynp8MHuERCVyENibU-3Fvjgi-iZe9fHbni3ijsJTN3/exec";
 
 const STATEMENTS = [
   "새벽에도 언제든 이야기할 수 있어서 좋았다",
@@ -293,7 +293,7 @@ function moveCard(id,from,to){
 function findCard(id){let c=unsorted.find(x=>x.id===id);if(c)return c;for(const g of groups){c=g.cards.find(x=>x.id===id);if(c)return c;}return null;}
 function addGroup(){groups.push({name:"그룹 "+(groups.length+1),cards:[]});render();}
 function startRename(i){editingGroupIdx=i;render();}
-function finishRename(i,v){v=v.trim();if(!v||isDefaultName(v)){groups[i].name="그룹 "+(i+1);}else{groups[i].name=v;}editingGroupIdx=null;render();}
+function finishRename(i,v){if(editingGroupIdx===null)return;v=v.trim();if(!v||isDefaultName(v)){groups[i].name="그룹 "+(i+1);}else{groups[i].name=v;}editingGroupIdx=null;render();}
 function removeGroup(i){unsorted=unsorted.concat(groups[i].cards);groups.splice(i,1);render();}
 
 // 분류 완료 → 평정으로 이동
