@@ -242,22 +242,22 @@ function render(){
   sb.className=canSubmit?"submit-btn active":"submit-btn disabled";sb.disabled=!canSubmit;
 
   const ul=document.getElementById("unsorted-list");
-  ul.innerHTML=unsorted.length===0?'<div class="empty-msg">모든 카드를 분류했습니다! 🎉</div>':
+  ul.innerHTML=unsorted.length===0?'<div class="empty-msg">모든 진술문을 분류했습니다! 🎉</div>':
     unsorted.map(c=>`<div class="card ${selectedCardId===c.id?'selected':''}" draggable="true" ondragstart="onDragStart(${c.id},'unsorted')" onclick="onCardClick(${c.id},'unsorted')"><span class="num">#${c.id}</span>${c.text}</div>`).join("");
   document.getElementById("unsorted-count").textContent=unsorted.length+"개 남음";
 
   const ga=document.getElementById("groups-area");
   if(groups.length===0){
-    ga.innerHTML='<div class="no-groups"><div style="font-size:36px;margin-bottom:10px">👆</div><p>위의 <strong>"+ 새 그룹 만들기"</strong> 버튼을 눌러<br>그룹을 만든 후, 왼쪽 카드를 끌어서 넣으세요.</p></div>';
+    ga.innerHTML='<div class="no-groups"><div style="font-size:36px;margin-bottom:10px">👆</div><p>위의 <strong>"+ 새 그룹 만들기"</strong> 버튼을 눌러<br>그룹을 만든 후, 왼쪽 진술문을 끌어서 넣으세요.</p></div>';
   }else{
     ga.innerHTML='<div class="groups-grid">'+groups.map((g,gi)=>{
       const c=COLORS[gi%COLORS.length];const unnamed=isDefaultName(g.name);
-      const tooltipHtml=`<span class="tip-trigger"><span class="tip-icon">?</span><span class="tip-popup">이 그룹에 속한 카드들의 <strong>공통된 의미</strong>를 짧게 요약해 주세요.<br>예: "정서적 안전감", "자기 이해", "접근성"</span></span>`;
+      const tooltipHtml=`<span class="tip-trigger"><span class="tip-icon">?</span><span class="tip-popup">이 그룹에 속한 진술문들의 <strong>공통된 의미</strong>를 짧게 요약해 주세요.<br>예: "날아다니는 것", "노란색인 것"</span></span>`;
       let nh;
       if(editingGroupIdx===gi){nh=`<input class="group-name-input" id="rename-input" style="border:1px solid ${c.border};color:${c.text};background:${c.bg}" value="${unnamed?'':g.name}" placeholder="공통 의미를 짧게 요약" oninput="editingValue=this.value" onblur="finishRename(${gi})" onkeydown="if(event.key==='Enter'){event.preventDefault();finishRename(${gi})}" autofocus>`;}
       else{nh=`<span class="group-name" style="color:${unnamed?'#EF4444':c.text}" onclick="startRename(${gi})">${g.name} ✏️</span>${tooltipHtml}`;}
       const warningHtml=unnamed?`<div class="group-name-warning">⚠️ 그룹 이름을 붙여주세요 — 클릭하여 수정</div>`:"";
-      const ch=g.cards.length===0?`<div class="group-empty" style="background:${c.bg};border-color:${c.border}">여기에 카드를 놓으세요</div>`:g.cards.map(card=>`<div class="group-card ${selectedCardId===card.id?'selected':''}" draggable="true" style="color:#475569" ondragstart="onDragStart(${card.id},'group',${gi})" onclick="onCardClick(${card.id},'group',${gi})"><span class="num" style="color:${c.border}">#${card.id}</span>${card.text}</div>`).join("");
+      const ch=g.cards.length===0?`<div class="group-empty" style="background:${c.bg};border-color:${c.border}">여기에 진술문을 놓으세요</div>`:g.cards.map(card=>`<div class="group-card ${selectedCardId===card.id?'selected':''}" draggable="true" style="color:#475569" ondragstart="onDragStart(${card.id},'group',${gi})" onclick="onCardClick(${card.id},'group',${gi})"><span class="num" style="color:${c.border}">#${card.id}</span>${card.text}</div>`).join("");
       return `<div class="group-box ${unnamed?'unnamed':''}" style="border-top-color:${unnamed?'#EF4444':c.border}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="this.classList.remove('drag-over');onDropGroup(${gi})"><div class="group-header">${nh}<span class="group-tag" style="background:${c.tag};color:${c.text}">${g.cards.length}</span><button class="group-del" onclick="removeGroup(${gi})" title="삭제">✕</button></div>${warningHtml}${ch}</div>`;
     }).join("")+'</div>';
   }
@@ -298,7 +298,7 @@ function removeGroup(i){unsorted=unsorted.concat(groups[i].cards);groups.splice(
 
 // 분류 완료 → 평정으로 이동
 function goToRating(){
-  if(unsorted.length>0){alert("아직 분류하지 않은 카드가 있습니다.");return;}
+  if(unsorted.length>0){alert("아직 분류하지 않은 진술문이 있습니다.");return;}
   if(groups.length<2){alert("최소 2개 이상의 그룹으로 분류해주세요.");return;}
   if(groups.some(g=>g.cards.length===0)){alert("비어있는 그룹이 있습니다.");return;}
   if(hasUnnamed()){alert("모든 그룹에 이름을 붙여주세요.");return;}
@@ -415,16 +415,16 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
 <div class="screen-box">
   <div style="text-align:center;font-size:44px;margin-bottom:14px">🧠</div>
   <h1>AI 심리상담 경험 분류</h1>
-  <p class="sub">개념도 연구를 위한 카드 분류 과제</p>
+  <p class="sub">개념도 연구를 위한 진술문 분류 과제</p>
   <div class="info-box">
     <h3>📋 과제 안내</h3>
-    <p>AI와 심리적 고민을 이야기하면서 도움이 되었던 경험들이 <strong>카드</strong>로 제시됩니다.</p>
-    <p>의미가 비슷하다고 느끼는 카드끼리 묶어서 <strong>그룹</strong>을 만들어 주세요.</p>
+    <p>AI와 심리적 고민을 이야기하면서 도움이 되었던 경험들이 <strong>진술문</strong>으로 제시됩니다.</p>
+    <p>의미가 비슷하다고 느끼는 진술문끼리 묶어서 <strong>그룹</strong>을 만들어 주세요.</p>
     <div style="background:#fff;border-radius:10px;padding:14px;border:1px solid #E2E8F0;margin-top:6px">
       <p style="font-weight:600;color:#1E293B;font-size:12px;margin-bottom:6px">규칙:</p>
       <ul>
-        <li>각 카드는 반드시 <strong>하나의 그룹에만</strong> 넣어주세요</li>
-        <li>모든 카드를 하나의 그룹에 넣지 마세요</li>
+        <li>각 진술문은 반드시 <strong>하나의 그룹에만</strong> 넣어주세요</li>
+        <li>모든 진술문을 하나의 그룹에 넣지 마세요</li>
         <li>그룹의 개수는 자유입니다 (보통 3~10개)</li>
         <li>각 그룹에는 반드시 <strong>의미를 담은 이름</strong>을 붙여주세요</li>
       </ul>
@@ -440,17 +440,17 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
 <div id="tutorial-screen" class="screen-wrap" style="display:none">
 <div class="screen-box" style="max-width:640px">
   <div style="text-align:center;font-size:36px;margin-bottom:8px">📖</div>
-  <h2>카드 분류 방법 안내</h2>
+  <h2>진술문 분류 방법 안내</h2>
   <p class="sub">3단계로 진행됩니다</p>
   <div class="tut-steps">
     <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#818CF8,#667EEA)">1</div><div class="body"><h4>그룹 만들기</h4><p>"+ 새 그룹 만들기" 버튼을 눌러 그룹을 만드세요. 그룹 수는 자유입니다.</p></div></div>
-    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#F59E0B,#D97706)">2</div><div class="body"><h4>카드를 그룹에 넣기</h4><p>왼쪽의 카드를 <strong>끌어서</strong> 오른쪽 그룹에 놓으세요. 모바일에서는 카드를 <strong>탭</strong>한 뒤 이동할 그룹을 선택하세요.</p></div></div>
-    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#22C55E,#16A34A)">3</div><div class="body"><h4>그룹 이름 붙이기 (필수)</h4><p>그룹 이름을 클릭하여, 카드들의 <strong>공통 의미를 짧게 요약</strong>한 이름으로 바꿔주세요.</p></div></div>
+    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#F59E0B,#D97706)">2</div><div class="body"><h4>진술문을 그룹에 넣기</h4><p>왼쪽의 진술문을 <strong>끌어서</strong> 오른쪽 그룹에 놓으세요. 모바일에서는 진술문을 <strong>탭</strong>한 뒤 이동할 그룹을 선택하세요.</p></div></div>
+    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#22C55E,#16A34A)">3</div><div class="body"><h4>그룹 이름 붙이기 (필수)</h4><p>그룹 이름을 클릭하여, 진술문들의 <strong>공통 의미를 짧게 요약</strong>한 이름으로 바꿔주세요.</p></div></div>
   </div>
   <div class="tut-demo"><div class="tut-demo-title">▼ 예시 ▼</div>
     <div class="tut-demo-layout">
-      <div class="tut-demo-left"><div class="tut-label">📦 미분류 카드</div><div class="tut-mini-card">AI와 대화 후 마음이 편해졌다</div><div class="tut-mini-card drag-demo">비용 없이 이용할 수 있었다</div><div class="tut-mini-card">사람에게 못 할 이야기를 했다</div></div>
-      <div class="tut-demo-right"><div class="tut-label">📂 그룹 영역</div><div class="tut-mini-group"><div class="tut-mini-group-name">정서적 안전감 ✏️</div><div class="tut-mini-card">판단받지 않아서 솔직해졌다</div><div class="tut-mini-card">AI라서 오히려 편했다</div></div><div class="tut-mini-group g2"><div class="tut-mini-group-name">접근성과 편리함 ✏️</div><div class="tut-mini-card">새벽에도 이야기할 수 있었다</div></div></div>
+      <div class="tut-demo-left"><div class="tut-label">📦 미분류 진술문</div><div class="tut-mini-card">고등어</div><div class="tut-mini-card drag-demo">바나나</div><div class="tut-mini-card">참외</div></div>
+      <div class="tut-demo-right"><div class="tut-label">📂 그룹 영역</div><div class="tut-mini-group"><div class="tut-mini-group-name">날아다니는 것 ✏️</div><div class="tut-mini-card">참새</div><div class="tut-mini-card">독수리</div></div><div class="tut-mini-group g2"><div class="tut-mini-group-name">노란색인 것 ✏️</div><div class="tut-mini-card">레몬</div></div></div>
     </div>
   </div>
   <div class="tut-tip"><p>💡 <strong>정답은 없습니다.</strong> 본인이 느끼는 대로 자유롭게 분류하세요.</p></div>
@@ -460,7 +460,7 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
 <!-- ═══ 3. 소팅 ═══ -->
 <div id="sorting-screen" style="display:none">
   <div class="header"><div class="header-inner">
-    <div class="header-left">🧠 카드 분류 <span>참여자: <span id="h-pid"></span></span></div>
+    <div class="header-left">🧠 진술문 분류 <span>참여자: <span id="h-pid"></span></span></div>
     <div class="header-right">
       <div class="progress-wrap"><div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div><span id="progress-text" class="progress-text"></span></div>
       <button id="sort-submit-btn" class="submit-btn disabled" disabled onclick="goToRating()">평정으로 →</button>
@@ -469,21 +469,21 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
   <div id="name-alert" class="name-alert-bar"></div>
   <div class="main">
     <div class="left-panel" ondragover="event.preventDefault()" ondrop="onDropUnsorted()">
-      <div class="unsorted-box"><h3>📦 미분류 카드</h3><p class="hint"><span id="unsorted-count"></span> — 카드를 끌어서 오른쪽 그룹에 놓으세요</p><div id="unsorted-list"></div></div>
+      <div class="unsorted-box"><h3>📦 미분류 진술문</h3><p class="hint"><span id="unsorted-count"></span> — 진술문을 끌어서 오른쪽 그룹에 놓으세요</p><div id="unsorted-list"></div></div>
     </div>
     <div class="right-panel">
       <div class="groups-header"><h3>📂 그룹 영역</h3><button class="add-group-btn" onclick="addGroup()">+ 새 그룹 만들기</button></div>
       <div id="groups-area"></div>
     </div>
   </div>
-  <div id="mobile-menu" class="mobile-menu" style="display:none"><div class="label"><strong>선택된 카드:</strong> <span id="mobile-card-label"></span></div><div id="mobile-btns" class="btns"></div></div>
+  <div id="mobile-menu" class="mobile-menu" style="display:none"><div class="label"><strong>선택된 진술문:</strong> <span id="mobile-card-label"></span></div><div id="mobile-btns" class="btns"></div></div>
 </div>
 
 <!-- ═══ 4. 평정 안내 ═══ -->
 <div id="rating-intro-screen" class="screen-wrap" style="display:none">
 <div class="screen-box">
   <div style="text-align:center;font-size:44px;margin-bottom:14px">✅</div>
-  <h2>카드 분류 완료!</h2>
+  <h2>진술문 분류 완료!</h2>
   <p class="sub">이어서 평정을 진행합니다</p>
   <div class="info-box">
     <h3>📊 평정 안내</h3>
@@ -548,7 +548,7 @@ document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
   <div style="font-size:56px">🎉</div>
   <h1 style="margin-top:16px">모든 과제가 완료되었습니다!</h1>
   <p style="font-size:14px;color:#64748B;line-height:1.6;margin-top:8px">소중한 참여에 진심으로 감사드립니다.</p>
-  <p style="font-size:13px;color:#94A3B8;margin-top:4px"><span id="done-groups"></span>개의 그룹으로 <span id="done-cards"></span>개의 카드를 분류하고 평정을 완료하셨습니다.</p>
+  <p style="font-size:13px;color:#94A3B8;margin-top:4px"><span id="done-groups"></span>개의 그룹으로 <span id="done-cards"></span>개의 진술문을 분류하고 평정을 완료하셨습니다.</p>
   <div class="done-info"><p>📩 결과가 연구자에게 자동 전송되었습니다.<br>이 페이지를 닫으셔도 됩니다.</p></div>
 </div></div>
 
