@@ -9,549 +9,608 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Noto Sans KR',sans-serif;background:#F1F5F9;}
 
-/* ═══ 공통 ═══ */
-.screen-wrap{min-height:100vh;background:linear-gradient(135deg,#667EEA,#764BA2);display:flex;align-items:center;justify-content:center;padding:20px;}
-.screen-box{background:#fff;border-radius:24px;padding:44px 34px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+/* 공통 */
+.screen-wrap{min-height:100vh;background:linear-gradient(135deg,#667EEA,#764BA2);display:flex;align-items:center;justify-content:center;padding:20px 16px;}
+.screen-box{background:#fff;border-radius:24px;padding:40px 30px;max-width:640px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
 .screen-box h1,.screen-box h2{font-weight:800;color:#1E293B;text-align:center;}
-.screen-box h1{font-size:24px;margin-bottom:6px;}
+.screen-box h1{font-size:23px;margin-bottom:6px;}
 .screen-box h2{font-size:20px;margin-bottom:4px;}
-.screen-box .sub{font-size:13px;color:#64748B;text-align:center;margin-bottom:24px;}
-.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,#667EEA,#764BA2);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .1s;}
-.btn-primary:active{transform:scale(.98);}
+.screen-box .sub{font-size:13px;color:#64748B;text-align:center;margin-bottom:22px;}
+.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,#667EEA,#764BA2);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-primary:disabled{background:#CBD5E1;cursor:not-allowed;}
 .btn-green{background:linear-gradient(135deg,#22C55E,#16A34A);}
-.info-box{background:#F8FAFC;border-radius:14px;padding:20px;border:1px solid #E2E8F0;margin-bottom:20px;}
+.btn-line{width:100%;padding:12px;background:#fff;color:#475569;border:2px solid #CBD5E1;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px;}
+.info-box{background:#F8FAFC;border-radius:14px;padding:18px;border:1px solid #E2E8F0;margin-bottom:16px;}
 .info-box h3{font-size:14px;font-weight:700;color:#334155;margin-bottom:8px;}
-.info-box p{font-size:13px;color:#475569;line-height:1.8;margin-bottom:8px;}
-.info-box ul{padding-left:20px;font-size:13px;color:#64748B;line-height:2;}
-.info-box ul strong{color:#334155;}
+.info-box p{font-size:13px;color:#475569;line-height:1.8;margin-bottom:6px;}
+.info-box ul{padding-left:20px;font-size:13px;color:#475569;line-height:1.9;}
+.info-box ul strong{color:#1E293B;}
+.rule-box{background:#fff;border-radius:10px;padding:14px;border:1px solid #E2E8F0;margin-top:6px;}
+.rule-key{background:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;padding:12px 14px;margin-top:10px;}
+.rule-key p{font-size:12.5px;color:#92400E;line-height:1.7;margin:0;}
 .id-label{display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;}
-.id-input{width:100%;padding:11px 14px;border:2px solid #E2E8F0;border-radius:10px;font-size:15px;outline:none;font-family:inherit;}
+.id-input{width:100%;padding:11px 14px;border:2px solid #E2E8F0;border-radius:10px;font-size:15px;outline:none;font-family:inherit;margin-bottom:12px;}
 .id-input:focus{border-color:#818CF8;}
+.consent-note{font-size:12.5px;color:#334155;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:10px;padding:12px 14px;line-height:1.7;margin-bottom:14px;}
+.conn{font-size:11px;color:#94A3B8;text-align:center;margin-top:10px;}
+.conn.bad{color:#B91C1C;font-weight:600;}
+.step-dots{display:flex;justify-content:center;gap:6px;margin-bottom:14px;}
+.step-dots span{width:8px;height:8px;border-radius:50%;background:#E2E8F0;}
+.step-dots span.on{background:#667EEA;}
 
-/* ═══ 튜토리얼 ═══ */
-.tut-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
-.tut-step{display:flex;gap:12px;align-items:flex-start;background:#F8FAFC;border-radius:12px;padding:14px;border:1px solid #E2E8F0;}
-.tut-step .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;font-weight:800;color:#fff;}
+/* 튜토리얼 */
+.tut-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.tut-step{display:flex;gap:12px;align-items:flex-start;background:#F8FAFC;border-radius:12px;padding:12px;border:1px solid #E2E8F0;}
+.tut-step .icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;font-weight:800;color:#fff;}
 .tut-step .body h4{font-size:13px;font-weight:700;color:#1E293B;margin-bottom:2px;}
-.tut-step .body p{font-size:11px;color:#64748B;line-height:1.6;}
-.tut-demo{border:2px solid #E2E8F0;border-radius:12px;padding:14px;margin-bottom:16px;background:#FAFBFC;}
-.tut-demo-title{font-size:10px;font-weight:700;color:#94A3B8;margin-bottom:8px;text-align:center;letter-spacing:1px;text-transform:uppercase;}
+.tut-step .body p{font-size:12px;color:#64748B;line-height:1.6;}
+.tut-demo{border:2px solid #E2E8F0;border-radius:12px;padding:12px;margin-bottom:14px;background:#FAFBFC;}
+.tut-demo-title{font-size:10px;font-weight:700;color:#94A3B8;margin-bottom:8px;text-align:center;letter-spacing:1px;}
 .tut-demo-layout{display:flex;gap:10px;}
-.tut-demo-left{width:38%;}
-.tut-demo-right{width:62%;}
-.tut-label{font-size:9px;font-weight:700;color:#64748B;margin-bottom:4px;}
-.tut-mini-card{background:#fff;border:1px solid #E8ECF0;border-radius:5px;padding:4px 6px;font-size:9px;color:#475569;margin-bottom:2px;line-height:1.3;}
-.tut-mini-card.drag-demo{border:1.5px dashed #818CF8;background:#EEF2FF;color:#667EEA;position:relative;}
-.tut-mini-card.drag-demo::after{content:'→';position:absolute;right:-14px;top:50%;transform:translateY(-50%);font-size:12px;color:#818CF8;font-weight:700;}
+.tut-demo-left{width:38%;}.tut-demo-right{width:62%;}
+.tut-label{font-size:10px;font-weight:700;color:#64748B;margin-bottom:4px;}
+.tut-mini-card{background:#fff;border:1px solid #E8ECF0;border-radius:5px;padding:4px 6px;font-size:10px;color:#475569;margin-bottom:2px;line-height:1.3;}
+.tut-mini-card.drag-demo{border:1.5px dashed #818CF8;background:#EEF2FF;color:#667EEA;}
 .tut-mini-group{border:1.5px solid #818CF8;border-radius:6px;padding:5px;border-top:3px solid #818CF8;margin-bottom:5px;background:#fff;}
-.tut-mini-group-name{font-size:9px;font-weight:700;color:#3730A3;margin-bottom:2px;}
-.tut-mini-group .tut-mini-card{border-color:#C7D2FE;background:#EEF2FF;}
+.tut-mini-group-name{font-size:10px;font-weight:700;color:#3730A3;margin-bottom:2px;}
 .tut-mini-group.g2{border-color:#F59E0B;border-top-color:#F59E0B;}
-.tut-mini-group.g2 .tut-mini-card{border-color:#FDE68A;background:#FEF3C7;}
 .tut-mini-group.g2 .tut-mini-group-name{color:#92400E;}
-.tut-tip{background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;padding:10px 12px;margin-bottom:18px;}
-.tut-tip p{font-size:11px;color:#92400E;line-height:1.6;}
+.tut-mini-group.bad{border-color:#EF4444;border-top-color:#EF4444;background:#FEF2F2;}
+.tut-mini-group.bad .tut-mini-group-name{color:#B91C1C;}
+.tut-x{font-size:10px;color:#B91C1C;font-weight:700;margin-top:2px;}
+.tut-tip{background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;padding:10px 12px;margin-bottom:16px;}
+.tut-tip p{font-size:12px;color:#92400E;line-height:1.6;}
 
-/* ═══ 소팅 ═══ */
-.header{background:#fff;border-bottom:1px solid #E2E8F0;padding:10px 20px;position:sticky;top:0;z-index:100;}
+/* 분류 */
+.header{background:#fff;border-bottom:1px solid #E2E8F0;padding:10px 16px;position:sticky;top:0;z-index:100;}
 .header-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
 .header-left{font-size:14px;font-weight:700;color:#1E293B;}
 .header-left span{font-size:12px;color:#94A3B8;margin-left:10px;font-weight:400;}
-.header-right{display:flex;align-items:center;gap:14px;}
+.header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .progress-wrap{display:flex;align-items:center;gap:8px;}
-.progress-bar{width:120px;height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden;}
+.progress-bar{width:110px;height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden;}
 .progress-fill{height:100%;border-radius:4px;transition:width .3s;}
 .progress-text{font-size:12px;font-weight:600;}
-.submit-btn{padding:8px 18px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.saved{font-size:11px;color:#16A34A;}
+.help-btn{padding:7px 12px;border:1px solid #CBD5E1;background:#fff;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit;color:#475569;}
+.submit-btn{padding:8px 16px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
 .submit-btn.active{background:linear-gradient(135deg,#667EEA,#764BA2);color:#fff;}
 .submit-btn.disabled{background:#E2E8F0;color:#94A3B8;cursor:not-allowed;}
-.name-alert-bar{display:none;background:#FEF2F2;border-bottom:1px solid #FECACA;padding:8px 20px;font-size:12px;color:#991B1B;text-align:center;font-weight:600;}
-
-.main{max-width:1400px;margin:0 auto;padding:20px;display:flex;gap:20px;min-height:calc(100vh - 56px);}
+.alert-bar{display:none;background:#FEF2F2;border-bottom:1px solid #FECACA;padding:8px 16px;font-size:12px;color:#991B1B;text-align:center;font-weight:600;line-height:1.6;}
+.main{max-width:1400px;margin:0 auto;padding:16px;display:flex;gap:16px;min-height:calc(100vh - 56px);}
 .left-panel{width:300px;flex-shrink:0;}
 .right-panel{flex:1;min-width:0;}
 .unsorted-box{background:#fff;border-radius:14px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);position:sticky;top:72px;max-height:calc(100vh - 90px);overflow-y:auto;}
 .unsorted-box h3{font-size:13px;font-weight:700;color:#1E293B;margin-bottom:2px;}
 .unsorted-box .hint{font-size:11px;color:#94A3B8;margin-bottom:10px;}
-.card{border-radius:8px;padding:9px 11px;margin-bottom:5px;cursor:grab;font-size:12px;color:#334155;line-height:1.5;transition:all .12s;user-select:none;border:1px solid #E8ECF0;background:#FAFBFC;}
+.card{border-radius:8px;padding:9px 11px;margin-bottom:5px;cursor:grab;font-size:12.5px;color:#334155;line-height:1.5;user-select:none;border:1px solid #E8ECF0;background:#FAFBFC;}
 .card:hover{border-color:#818CF8;background:#F5F3FF;}
-.card.selected{border:2px solid #818CF8;background:#EEF2FF;}
-.card .num{color:#94A3B8;font-size:10px;margin-right:4px;}
+.card.selected,.group-card.selected{border:2px solid #818CF8;background:#EEF2FF;}
 .empty-msg{padding:20px;text-align:center;color:#94A3B8;font-size:12px;background:#F8FAFC;border-radius:8px;border:2px dashed #E2E8F0;}
-
-.groups-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.groups-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap;}
 .groups-header h3{font-size:13px;font-weight:700;color:#1E293B;}
 .add-group-btn{padding:8px 14px;background:#fff;border:2px dashed #818CF8;border-radius:8px;font-size:12px;font-weight:600;color:#667EEA;cursor:pointer;font-family:inherit;}
-.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
-.group-box{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-top:3px solid #818CF8;transition:box-shadow .15s;min-height:100px;}
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.group-box{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-top:3px solid #818CF8;min-height:100px;}
 .group-box.drag-over{box-shadow:0 0 0 2px #818CF8;}
-.group-box.unnamed{border-top-color:#EF4444 !important;box-shadow:0 0 0 1.5px #FECACA;}
+.group-box.warn{box-shadow:0 0 0 1.5px #FECACA;}
 .group-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
 .group-name{font-size:13px;font-weight:700;cursor:pointer;flex:1;display:flex;align-items:center;gap:4px;}
 .group-name-input{flex:1;padding:3px 7px;border-radius:5px;font-size:13px;font-weight:600;outline:none;font-family:inherit;}
 .group-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;}
 .group-del{background:none;border:none;cursor:pointer;font-size:13px;color:#94A3B8;padding:0;margin-left:6px;}
 .group-empty{padding:16px;text-align:center;color:#94A3B8;font-size:11px;border-radius:6px;border:1px dashed #CBD5E1;}
-.group-card{border-radius:7px;padding:7px 9px;margin-bottom:3px;cursor:grab;font-size:11px;line-height:1.5;transition:all .1s;user-select:none;border:1px solid #EAECF0;background:#FAFBFC;}
-.group-card .num{font-size:9px;margin-right:3px;}
-.no-groups{background:#fff;border-radius:14px;padding:44px;text-align:center;border:2px dashed #CBD5E1;}
-.no-groups p{font-size:14px;color:#64748B;}
-.group-name-warning{font-size:10px;color:#EF4444;margin-bottom:6px;display:flex;align-items:center;gap:3px;font-weight:600;}
+.group-card{border-radius:7px;padding:7px 9px;margin-bottom:3px;cursor:grab;font-size:12px;line-height:1.5;user-select:none;border:1px solid #EAECF0;background:#FAFBFC;color:#475569;}
+.group-warning{font-size:11px;color:#DC2626;margin-bottom:6px;font-weight:600;line-height:1.5;}
+.no-groups{background:#fff;border-radius:14px;padding:40px 20px;text-align:center;border:2px dashed #CBD5E1;}
+.no-groups p{font-size:14px;color:#64748B;line-height:1.7;}
 .tip-trigger{position:relative;cursor:help;display:inline-flex;align-items:center;}
-.tip-icon{width:14px;height:14px;border-radius:50%;background:#CBD5E1;color:#475569;font-size:9px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;}
-.tip-popup{display:none;position:absolute;left:50%;top:22px;transform:translateX(-50%);background:#1E293B;color:#fff;padding:8px 11px;border-radius:8px;font-size:11px;line-height:1.6;width:240px;z-index:50;box-shadow:0 4px 14px rgba(0,0,0,.25);font-weight:400;text-align:left;}
-.tip-popup::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid #1E293B;}
+.tip-icon{width:14px;height:14px;border-radius:50%;background:#CBD5E1;color:#475569;font-size:9px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;}
+.tip-popup{display:none;position:absolute;left:50%;top:22px;transform:translateX(-50%);background:#1E293B;color:#fff;padding:8px 11px;border-radius:8px;font-size:11px;line-height:1.6;width:230px;z-index:50;font-weight:400;text-align:left;}
 .tip-trigger:hover .tip-popup{display:block;}
-
-.mobile-menu{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid #E2E8F0;padding:14px;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.1);}
+.mobile-menu{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid #E2E8F0;padding:14px;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.1);max-height:50vh;overflow-y:auto;}
 .mobile-menu .label{font-size:12px;color:#64748B;margin-bottom:8px;}
 .mobile-menu .btns{display:flex;gap:6px;flex-wrap:wrap;}
-.mobile-menu .btns button{padding:7px 11px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit;border:1px solid #CBD5E1;background:#F8FAFC;color:#475569;}
+.mobile-menu .btns button{padding:7px 11px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;border:1px solid #CBD5E1;background:#F8FAFC;color:#475569;}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;z-index:500;padding:16px;}
+.modal .screen-box{max-height:90vh;overflow-y:auto;}
 
-/* ═══ 평정 ═══ */
-.rating-container{max-width:900px;margin:0 auto;padding:20px;}
-.rating-header{background:#fff;border-bottom:1px solid #E2E8F0;padding:12px 20px;position:sticky;top:0;z-index:100;}
-.rating-header-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
-.rating-header-left{font-size:14px;font-weight:700;color:#1E293B;}
-.rating-header-left span{font-size:12px;color:#94A3B8;margin-left:8px;font-weight:400;}
-.rating-guide{background:#fff;border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-left:4px solid #667EEA;}
-.rating-guide p{font-size:12px;color:#475569;line-height:1.7;}
+/* 평정 */
+.rating-container{max-width:920px;margin:0 auto;padding:16px;}
+.rating-guide{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-left:4px solid #667EEA;}
+.rating-guide p{font-size:12.5px;color:#475569;line-height:1.7;}
 .rating-guide strong{color:#1E293B;}
-.rating-table{width:100%;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden;margin-bottom:16px;}
-.rating-table table{width:100%;border-collapse:collapse;}
-.rating-table thead th{background:#F8FAFC;padding:10px 6px;font-size:10px;font-weight:700;color:#64748B;border-bottom:2px solid #E2E8F0;text-align:center;position:sticky;top:0;}
-.rating-table thead th:first-child{text-align:left;padding-left:14px;width:40%;}
-.rating-table thead .scale-header{font-size:11px;font-weight:800;color:#1E293B;padding-bottom:2px;}
-.rating-table thead .scale-anchors{display:flex;justify-content:space-between;font-size:8px;color:#94A3B8;font-weight:400;padding:0 2px;}
-.rating-table tbody tr{border-bottom:1px solid #F1F5F9;transition:background .1s;}
-.rating-table tbody tr:hover{background:#FAFBFC;}
-.rating-table tbody tr.incomplete{background:#FEF2F2;}
-.rating-table tbody td{padding:10px 6px;text-align:center;vertical-align:middle;}
-.rating-table tbody td:first-child{text-align:left;padding-left:14px;font-size:12px;color:#334155;line-height:1.5;}
-.rating-table tbody td:first-child .num{color:#94A3B8;font-size:10px;margin-right:4px;}
-.rating-radio{display:flex;justify-content:center;gap:4px;}
-.rating-radio label{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:4px;}
-.rating-radio input[type="radio"]{width:18px;height:18px;accent-color:#667EEA;cursor:pointer;margin:0;}
-.rating-radio .r-label{font-size:9px;color:#94A3B8;margin-top:2px;}
-.rating-nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
-.rating-nav button{padding:10px 24px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;border:none;}
-.rating-nav .prev-btn{background:#E2E8F0;color:#475569;}
-.rating-nav .next-btn{background:linear-gradient(135deg,#667EEA,#764BA2);color:#fff;}
-.rating-nav .next-btn.disabled{background:#E2E8F0;color:#94A3B8;cursor:not-allowed;}
-.rating-nav .final-btn{background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;}
-.rating-nav .final-btn.disabled{background:#E2E8F0;color:#94A3B8;cursor:not-allowed;}
+.r-item{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid transparent;}
+.r-item.incomplete{border-color:#FECACA;background:#FFFBFB;}
+.r-text{font-size:14px;color:#1E293B;line-height:1.6;margin-bottom:10px;font-weight:500;}
+.r-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.r-lab{font-size:12px;font-weight:700;color:#475569;width:72px;flex-shrink:0;}
+.r-scale{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.r-scale .anc{font-size:10.5px;color:#94A3B8;}
+.r-scale label{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:2px 4px;}
+.r-scale input{width:20px;height:20px;accent-color:#667EEA;cursor:pointer;}
+.r-scale span.n{font-size:10px;color:#64748B;}
+.rating-nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;}
+.rating-nav button{padding:10px 22px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;border:none;}
+.prev-btn{background:#E2E8F0;color:#475569;}
+.next-btn{background:linear-gradient(135deg,#667EEA,#764BA2);color:#fff;}
+.final-btn{background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;}
 .rating-page-info{font-size:13px;color:#64748B;font-weight:600;}
-.rating-progress{width:100%;height:6px;background:#E2E8F0;border-radius:3px;margin-bottom:16px;}
-.rating-progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#667EEA,#764BA2);transition:width .3s;}
 
-/* ═══ 로딩/완료 ═══ */
+/* 전송/완료 */
 .loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:999;}
-.loading-box{background:#fff;border-radius:16px;padding:36px 40px;text-align:center;}
+.loading-box{background:#fff;border-radius:16px;padding:32px 36px;text-align:center;max-width:360px;}
 .spinner{width:40px;height:40px;border:4px solid #E2E8F0;border-top-color:#667EEA;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.done-info{background:#F0FDF4;border-radius:12px;padding:18px;margin-top:20px;border:1px solid #BBF7D0;}
-.done-info p{font-size:13px;color:#166534;margin:0;}
+.done-info{background:#F0FDF4;border-radius:12px;padding:16px;margin-top:16px;border:1px solid #BBF7D0;}
+.done-info p{font-size:13px;color:#166534;margin:0;line-height:1.7;}
+.warn-info{background:#FEF2F2;border-radius:12px;padding:16px;margin-top:16px;border:1px solid #FECACA;}
+.warn-info p{font-size:13px;color:#991B1B;margin:0 0 6px;line-height:1.7;}
+.code-big{font-size:26px;font-weight:800;letter-spacing:3px;color:#1E293B;margin:8px 0;}
+.support{font-size:12px;color:#475569;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:12px 14px;margin-top:14px;line-height:1.7;text-align:left;}
 
 @media(max-width:768px){
 .main{flex-direction:column;}.left-panel{width:100%;}.unsorted-box{position:static;max-height:none;}.groups-grid{grid-template-columns:1fr;}
-.tut-demo-layout{flex-direction:column;}.tut-demo-left,.tut-demo-right{width:100%;}.tut-mini-card.drag-demo::after{display:none;}
-.rating-table thead .scale-anchors{display:none;}.rating-radio label{padding:2px;}.rating-radio input[type="radio"]{width:16px;height:16px;}
+.tut-demo-layout{flex-direction:column;}.tut-demo-left,.tut-demo-right{width:100%;}
+.screen-box{padding:28px 18px;}
+.r-lab{width:100%;}
 }
 </style>
 </head>
 <body>
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9MZMM6s9SJi3A7xNatZ5EqgBbyis4cBX4jyh5sGeYDRop5PoFnexsafioewT4bSqB/exec";
-
+/* ===================== 연구자 설정 ===================== */
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPRky47THLNRMm9ISejAIDMaIWchUe5eJqlUlKtVp88k4MxqtNtP_mzspqB_rgLVzWgg/exec";
+const RESEARCHER = {name:"강병수", phone:"010-8884-4807", email:"gbs5216@chungbuk.ac.kr"};
+const STATEMENT_SET = "SAMPLE";  // make_statements.py가 실제 진술문 세트 이름으로 바꿉니다
+/* 진술문: code는 연구자 대응표와 연결되는 무작위 코드이며 참여자 화면에는 표시하지 않습니다.
+   아래 목록은 예시입니다. make_statements.py로 실제 진술문을 넣으세요. */
+/*STATEMENTS_BEGIN*/
 const STATEMENTS = [
-  "새벽에도 언제든 이야기할 수 있어서 좋았다",
-  "AI가 내 말을 요약해줘서 내가 뭘 느끼는지 명확해졌다",
-  "판단받지 않는다는 느낌이 들어서 솔직하게 말할 수 있었다",
-  "AI가 다른 관점에서 상황을 보여줘서 생각이 바뀌었다",
-  "글로 쓰면서 머릿속이 정리되는 느낌이 들었다",
-  "AI가 공감해줘서 위로가 되었다",
-  "비용 부담 없이 이용할 수 있어서 좋았다",
-  "AI가 구체적인 대처 방법을 알려줘서 실제로 적용해봤다",
-  "사람에게 말하기 어려운 이야기를 AI에게 할 수 있었다",
-  "AI의 응답이 빠르고 즉각적이어서 좋았다",
-  "AI와 대화 후 감정이 가라앉는 느낌이 들었다",
-  "AI가 내 상황을 객관적으로 분석해줘서 도움이 되었다",
-  "혼자가 아니라는 느낌을 받았다",
-  "AI가 나의 사고 패턴을 지적해줘서 자기이해가 깊어졌다",
-  "상대방의 입장을 이해하는 데 도움이 되었다",
-  "AI에게 쓰면서 억눌러왔던 감정이 표출되었다",
-  "AI가 사람이 아니라서 오히려 편했다",
-  "AI의 응답을 읽으면서 내 감정에 이름을 붙일 수 있었다",
-  "주변 시선 걱정 없이 상담받을 수 있어서 좋았다",
-  "AI가 이전 대화를 기억하지 못해서 아쉬웠다"
+  {code:"S07",text:"새벽에도 언제든 이야기할 수 있어서 좋았다"},
+  {code:"S15",text:"AI가 내 말을 요약해줘서 내가 뭘 느끼는지 명확해졌다"},
+  {code:"S02",text:"판단받지 않는다는 느낌이 들어서 솔직하게 말할 수 있었다"},
+  {code:"S19",text:"AI가 다른 관점에서 상황을 보여줘서 생각이 바뀌었다"},
+  {code:"S11",text:"글로 쓰면서 머릿속이 정리되는 느낌이 들었다"},
+  {code:"S04",text:"AI가 공감해줘서 위로가 되었다"},
+  {code:"S13",text:"비용 부담 없이 이용할 수 있어서 좋았다"},
+  {code:"S09",text:"AI가 구체적인 대처 방법을 알려줘서 실제로 적용해봤다"},
+  {code:"S01",text:"사람에게 말하기 어려운 이야기를 AI에게 할 수 있었다"},
+  {code:"S17",text:"AI의 응답이 빠르고 즉각적이어서 좋았다"},
+  {code:"S06",text:"AI와 대화 후 감정이 가라앉는 느낌이 들었다"},
+  {code:"S20",text:"AI가 내 상황을 객관적으로 분석해줘서 도움이 되었다"},
+  {code:"S12",text:"혼자가 아니라는 느낌을 받았다"},
+  {code:"S03",text:"AI가 나의 사고 패턴을 지적해줘서 자기이해가 깊어졌다"},
+  {code:"S16",text:"상대방의 입장을 이해하는 데 도움이 되었다"},
+  {code:"S08",text:"AI에게 쓰면서 억눌러왔던 감정이 표출되었다"},
+  {code:"S18",text:"AI가 사람이 아니라서 오히려 편했다"},
+  {code:"S05",text:"AI의 응답을 읽으면서 내 감정에 이름을 붙일 수 있었다"},
+  {code:"S14",text:"주변 시선 걱정 없이 상담받을 수 있어서 좋았다"},
+  {code:"S10",text:"AI가 이전 대화를 기억하지 못해서 아쉬웠다"}
 ];
+/*STATEMENTS_END*/
+/* 평정 차원: IRB 계획의 척도(1 전혀 그렇지 않다 ~ 5 매우 그렇다)를 그대로 쓰며, 차원의 문항만 바꿀 수 있습니다. */
+const RATING_DIMS = [
+  {key:"freq", label:"경험 빈도", short:"자주 경험", q:"나는 AI와 대화하면서 이런 경험을 자주 했다."},
+  {key:"imp",  label:"중요도",   short:"중요함",   q:"이 경험은 AI와의 대화가 나에게 도움이 되는 데 중요했다."}
+];
+const ANCHOR_LOW="전혀 그렇지 않다", ANCHOR_HIGH="매우 그렇다";
+const ITEMS_PER_PAGE = 10;
+const MIN_PER_GROUP = 2;
+/* ===================================================== */
 
 const COLORS=[
 {bg:"#EEF2FF",border:"#818CF8",text:"#3730A3",tag:"#C7D2FE"},{bg:"#FEF3C7",border:"#F59E0B",text:"#92400E",tag:"#FDE68A"},
 {bg:"#DCFCE7",border:"#22C55E",text:"#166534",tag:"#BBF7D0"},{bg:"#FCE7F3",border:"#EC4899",text:"#9D174D",tag:"#FBCFE8"},
-{bg:"#E0F2FE",border:"#0EA5E9",text:"#075985",tag:"#BAE6FD"},{bg:"#FEE2E2",border:"#EF4444",text:"#991B1B",tag:"#FECACA"},
-{bg:"#F3E8FF",border:"#A855F7",text:"#6B21A8",tag:"#E9D5FF"},{bg:"#FFEDD5",border:"#F97316",text:"#9A3412",tag:"#FED7AA"},
-{bg:"#D1FAE5",border:"#10B981",text:"#065F46",tag:"#A7F3D0"},{bg:"#E0E7FF",border:"#6366F1",text:"#3730A3",tag:"#C7D2FE"},
-{bg:"#FEF9C3",border:"#EAB308",text:"#854D0E",tag:"#FEF08A"},{bg:"#CFFAFE",border:"#06B6D4",text:"#155E75",tag:"#A5F3FC"},
-{bg:"#FAE8FF",border:"#D946EF",text:"#86198F",tag:"#F5D0FE"},{bg:"#F1F5F9",border:"#64748B",text:"#334155",tag:"#CBD5E1"},
-{bg:"#FFF1F2",border:"#FB7185",text:"#9F1239",tag:"#FECDD3"}];
+{bg:"#E0F2FE",border:"#0EA5E9",text:"#075985",tag:"#BAE6FD"},{bg:"#F3E8FF",border:"#A855F7",text:"#6B21A8",tag:"#E9D5FF"},
+{bg:"#FFEDD5",border:"#F97316",text:"#9A3412",tag:"#FED7AA"},{bg:"#D1FAE5",border:"#10B981",text:"#065F46",tag:"#A7F3D0"},
+{bg:"#E0E7FF",border:"#6366F1",text:"#3730A3",tag:"#C7D2FE"},{bg:"#FEF9C3",border:"#EAB308",text:"#854D0E",tag:"#FEF08A"},
+{bg:"#CFFAFE",border:"#06B6D4",text:"#155E75",tag:"#A5F3FC"},{bg:"#FAE8FF",border:"#D946EF",text:"#86198F",tag:"#F5D0FE"},
+{bg:"#F1F5F9",border:"#64748B",text:"#334155",tag:"#CBD5E1"},{bg:"#FFF1F2",border:"#FB7185",text:"#9F1239",tag:"#FECDD3"}];
 
-const ITEMS_PER_PAGE = 10;
+const TEXT=Object.fromEntries(STATEMENTS.map(s=>[s.code,s.text]));
+let S=null; // 진행 상태 전체 (자동 저장 대상)
+let dragCode=null,dragFrom=null,sel=null,selFrom=null,editingIdx=null,editingValue="";
 
-let participantId="",unsorted=[],groups=[],dragCardId=null,dragSource=null;
-let selectedCardId=null,selectedSource=null,selectedGroupIdx=null,editingGroupIdx=null,editingValue="";
-// 평정
-let ratings={};// {statementId: {importance:N, uniqueness:N}}
-let ratingOrder=[];// 무선배열된 진술문 ID
-let ratingPage=0;
+/* ---------- 저장 ---------- */
+const KEY=pid=>"cm_state_"+STATEMENT_SET+"_"+pid;
+function save(){ if(!S)return; S.savedAt=new Date().toISOString(); try{localStorage.setItem(KEY(S.pid),JSON.stringify(S));}catch(e){} const el=document.querySelectorAll(".saved"); el.forEach(x=>x.textContent="자동 저장됨 "+new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"})); }
+function load(pid){ try{const v=localStorage.getItem(KEY(pid)); return v?JSON.parse(v):null;}catch(e){return null;} }
+function uuid(){ if(window.crypto&&crypto.randomUUID)return crypto.randomUUID(); return "x"+Date.now().toString(36)+Math.random().toString(36).slice(2,10); }
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
-function isDefaultName(n){return /^그룹\s*\d*$/.test(n.trim());}
-function hasUnnamed(){return groups.some(g=>isDefaultName(g.name));}
-function unnamedCount(){return groups.filter(g=>isDefaultName(g.name)).length;}
-
-function init(){
-  const a=STATEMENTS.map((t,i)=>({id:i+1,text:t}));
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  unsorted=a;groups=[];render();
+/* ---------- 화면 ---------- */
+const SCREENS=["welcome","consent","tutorial","sorting","rating-intro","rating","loading","done"];
+function show(n){
+  SCREENS.forEach(s=>{const el=document.getElementById(s+"-screen");if(el)el.style.display=s===n?((s==="sorting"||s==="rating")?"block":"flex"):"none";});
+  if(S&&["sorting","rating-intro","rating"].includes(n)){S.screen=n;save();}
+  if(n==="sorting")render(); if(n==="rating")renderRating(); window.scrollTo(0,0);
 }
-function showScreen(n){
-  ["welcome","tutorial","sorting","rating-intro","rating","loading","done"].forEach(s=>{
-    const el=document.getElementById(s+"-screen");
-    if(!el)return;
-    el.style.display=s===n?(s==="sorting"||s==="rating"?"block":"flex"):"none";
-  });
-  if(n==="sorting")render();
-  if(n==="rating")renderRating();
+function goConsent(){show("consent");}
+function startWithId(){
+  const pid=document.getElementById("pid-input").value.trim();
+  if(!pid){alert("연구자가 안내한 참여자 ID를 입력해 주세요.");return;}
+  const old=load(pid);
+  if(old&&old.finished&&!confirm("이 ID로 이미 제출을 마친 기록이 있습니다. 처음부터 다시 하시겠습니까?"))return;
+  if(old&&!old.finished){
+    document.getElementById("resume-info").textContent=`${new Date(old.savedAt).toLocaleString("ko-KR")}에 저장된 진행 상태가 있습니다.`;
+    document.getElementById("resume-modal").style.display="flex"; window._pid=pid; return;
+  }
+  newState(pid); show("tutorial");
 }
-function goToTutorial(){
-  participantId=document.getElementById("pid-input").value.trim();
-  if(!participantId){alert("참여자 ID를 입력해주세요.");return;}
-  showScreen("tutorial");
+function newState(pid){
+  S={pid,set:STATEMENT_SET,sessionId:uuid(),startedAt:new Date().toISOString(),screen:"tutorial",
+     unsorted:shuffle(STATEMENTS.map(s=>s.code)),groups:[],ratings:{},ratingOrder:[],ratingPage:0,sortDoneAt:null,sortSent:false,finished:false,lastSubmit:null};
+  save();
 }
-function startSorting(){init();showScreen("sorting");}
+function resume(yes){
+  document.getElementById("resume-modal").style.display="none";
+  if(yes){S=load(window._pid); if(S.lastSubmit){showDone(false,S.lastSubmit.receiptCode);return;} show(S.screen||"tutorial");} else {newState(window._pid); show("tutorial");}
+}
 
-// ═══ 소팅 로직 ═══
+/* ---------- 분류 ---------- */
+const isDefault=n=>/^그룹\s*\d*$/.test(n.trim());
+const tooFew=g=>g.cards.length>0&&g.cards.length<MIN_PER_GROUP;
+function problems(){
+  const p=[];
+  if(S.unsorted.length>0)p.push(`아직 분류하지 않은 진술문 ${S.unsorted.length}개`);
+  const empty=S.groups.filter(g=>g.cards.length===0).length; if(empty)p.push(`비어 있는 그룹 ${empty}개 (진술문을 넣거나 ✕로 지워 주세요)`);
+  const few=S.groups.filter(tooFew).length; if(few)p.push(`진술문이 1개뿐인 그룹 ${few}개 (진술문을 ${MIN_PER_GROUP}개 이상 넣어 주세요)`);
+  const un=S.groups.filter(g=>isDefault(g.name)).length; if(un)p.push(`이름이 없는 그룹 ${un}개`);
+  if(S.groups.filter(g=>g.cards.length>0).length<2)p.push("그룹은 2개 이상이어야 합니다");
+  return p;
+}
 function render(){
-  const total=STATEMENTS.length,sorted=total-unsorted.length,pct=Math.round(sorted/total*100);
-  document.getElementById("h-pid").textContent=participantId;
-  const pf=document.getElementById("progress-fill");
-  pf.style.width=pct+"%";pf.style.background=pct===100?"#22C55E":"linear-gradient(90deg,#667EEA,#764BA2)";
-  const pt=document.getElementById("progress-text");pt.textContent=sorted+"/"+total;pt.style.color=pct===100?"#22C55E":"#64748B";
-  const canSubmit=unsorted.length===0&&groups.length>=2&&!hasUnnamed()&&!groups.some(g=>g.cards.length===0);
-  const sb=document.getElementById("sort-submit-btn");
-  sb.className=canSubmit?"submit-btn active":"submit-btn disabled";sb.disabled=!canSubmit;
-
+  const total=STATEMENTS.length,done=total-S.unsorted.length,pct=Math.round(done/total*100);
+  document.getElementById("h-pid").textContent=S.pid;
+  const pf=document.getElementById("progress-fill");pf.style.width=pct+"%";pf.style.background=pct===100?"#22C55E":"linear-gradient(90deg,#667EEA,#764BA2)";
+  document.getElementById("progress-text").textContent=done+"/"+total;
+  const probs=problems(),ok=probs.length===0;
+  const sb=document.getElementById("sort-submit-btn");sb.className=ok?"submit-btn active":"submit-btn disabled";
   const ul=document.getElementById("unsorted-list");
-  ul.innerHTML=unsorted.length===0?'<div class="empty-msg">모든 진술문을 분류했습니다! 🎉</div>':
-    unsorted.map(c=>`<div class="card ${selectedCardId===c.id?'selected':''}" draggable="true" ondragstart="onDragStart(${c.id},'unsorted')" onclick="onCardClick(${c.id},'unsorted')"><span class="num">#${c.id}</span>${c.text}</div>`).join("");
-  document.getElementById("unsorted-count").textContent=unsorted.length+"개 남음";
-
+  ul.innerHTML=S.unsorted.length===0?'<div class="empty-msg">모든 진술문을 분류했습니다.</div>':
+    S.unsorted.map(c=>`<div class="card ${sel===c?'selected':''}" draggable="true" ondragstart="dStart('${c}',-1)" onclick="pick('${c}',-1)">${esc(TEXT[c])}</div>`).join("");
+  document.getElementById("unsorted-count").textContent=S.unsorted.length+"개 남음";
   const ga=document.getElementById("groups-area");
-  if(groups.length===0){
-    ga.innerHTML='<div class="no-groups"><div style="font-size:36px;margin-bottom:10px">👆</div><p>위의 <strong>"+ 새 그룹 만들기"</strong> 버튼을 눌러<br>그룹을 만든 후, 왼쪽 진술문을 끌어서 넣으세요.</p></div>';
-  }else{
-    ga.innerHTML='<div class="groups-grid">'+groups.map((g,gi)=>{
-      const c=COLORS[gi%COLORS.length];const unnamed=isDefaultName(g.name);
-      const tooltipHtml=`<span class="tip-trigger"><span class="tip-icon">?</span><span class="tip-popup">이 그룹에 속한 진술문들의 <strong>공통된 의미</strong>를 짧게 요약해 주세요.<br>예: "날아다니는 것", "노란색인 것"</span></span>`;
-      let nh;
-      if(editingGroupIdx===gi){nh=`<input class="group-name-input" id="rename-input" style="border:1px solid ${c.border};color:${c.text};background:${c.bg}" value="${unnamed?'':g.name}" placeholder="공통 의미를 짧게 요약" oninput="editingValue=this.value" onblur="finishRename(${gi})" onkeydown="if(event.key==='Enter'){event.preventDefault();finishRename(${gi})}" autofocus>`;}
-      else{nh=`<span class="group-name" style="color:${unnamed?'#EF4444':c.text}" onclick="startRename(${gi})">${g.name} ✏️</span>${tooltipHtml}`;}
-      const warningHtml=unnamed?`<div class="group-name-warning">⚠️ 그룹 이름을 붙여주세요 — 클릭하여 수정</div>`:"";
-      const ch=g.cards.length===0?`<div class="group-empty" style="background:${c.bg};border-color:${c.border}">여기에 진술문을 놓으세요</div>`:g.cards.map(card=>`<div class="group-card ${selectedCardId===card.id?'selected':''}" draggable="true" style="color:#475569" ondragstart="onDragStart(${card.id},'group',${gi})" onclick="onCardClick(${card.id},'group',${gi})"><span class="num" style="color:${c.border}">#${card.id}</span>${card.text}</div>`).join("");
-      return `<div class="group-box ${unnamed?'unnamed':''}" style="border-top-color:${unnamed?'#EF4444':c.border}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="this.classList.remove('drag-over');onDropGroup(${gi})"><div class="group-header">${nh}<span class="group-tag" style="background:${c.tag};color:${c.text}">${g.cards.length}</span><button class="group-del" onclick="removeGroup(${gi})" title="삭제">✕</button></div>${warningHtml}${ch}</div>`;
+  if(S.groups.length===0){ga.innerHTML='<div class="no-groups"><p><strong>"+ 새 그룹 만들기"</strong>를 눌러 그룹을 만든 뒤<br>왼쪽 진술문을 끌어서 넣으세요.<br><span style="font-size:12px;color:#94A3B8">모바일에서는 진술문을 누른 뒤 넣을 그룹을 고르세요.</span></p></div>';}
+  else{
+    ga.innerHTML='<div class="groups-grid">'+S.groups.map((g,gi)=>{
+      const c=COLORS[gi%COLORS.length],unnamed=isDefault(g.name),few=tooFew(g);
+      const tip=`<span class="tip-trigger"><span class="tip-icon">?</span><span class="tip-popup">이 그룹에 속한 진술문들의 <strong>공통된 의미</strong>를 짧게 적어 주세요.</span></span>`;
+      const nh=editingIdx===gi?`<input class="group-name-input" id="rename-input" style="border:1px solid ${c.border};color:${c.text};background:${c.bg}" value="${unnamed?'':esc(g.name)}" placeholder="공통 의미를 짧게" oninput="editingValue=this.value" onblur="endRename(${gi})" onkeydown="if(event.key==='Enter'){event.preventDefault();endRename(${gi})}">`
+        :`<span class="group-name" style="color:${unnamed?'#EF4444':c.text}" onclick="beginRename(${gi})">${esc(g.name)} ✏️</span>${tip}`;
+      let warn="";
+      if(unnamed)warn+=`<div class="group-warning">그룹 이름을 붙여 주세요 (이름을 누르면 수정할 수 있습니다)</div>`;
+      if(few)warn+=`<div class="group-warning">진술문이 1개뿐입니다. 비슷한 진술문을 1개 이상 더 넣거나, 이 진술문을 가장 가까운 다른 그룹으로 옮겨 주세요.</div>`;
+      const cards=g.cards.length===0?`<div class="group-empty" style="background:${c.bg};border-color:${c.border}">여기에 진술문을 놓으세요</div>`:
+        g.cards.map(cd=>`<div class="group-card ${sel===cd?'selected':''}" draggable="true" ondragstart="dStart('${cd}',${gi})" onclick="pick('${cd}',${gi})">${esc(TEXT[cd])}</div>`).join("");
+      return `<div class="group-box ${(unnamed||few)?'warn':''}" style="border-top-color:${(unnamed||few)?'#EF4444':c.border}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="this.classList.remove('drag-over');dropTo(${gi})"><div class="group-header">${nh}<span class="group-tag" style="background:${c.tag};color:${c.text}">${g.cards.length}</span><button class="group-del" onclick="delGroup(${gi})" title="그룹 지우기">✕</button></div>${warn}${cards}</div>`;
     }).join("")+'</div>';
   }
-  const alertBar=document.getElementById("name-alert");
-  if(unsorted.length===0&&hasUnnamed()){alertBar.style.display="block";alertBar.textContent="⚠️ 이름이 붙지 않은 그룹이 "+unnamedCount()+"개 있습니다. 모든 그룹에 이름을 붙여야 다음 단계로 넘어갈 수 있습니다.";}
-  else{alertBar.style.display="none";}
-  renderMobileMenu();
+  const ab=document.getElementById("sort-alert");
+  if(S.unsorted.length===0&&!ok){ab.style.display="block";ab.innerHTML="다음 단계로 가기 전에 확인해 주세요: "+probs.map(esc).join(" · ");} else ab.style.display="none";
+  if(editingIdx!==null){const ri=document.getElementById("rename-input");if(ri){ri.focus();}}
+  renderMenu(); save();
 }
-function renderMobileMenu(){
-  const m=document.getElementById("mobile-menu");if(selectedCardId===null){m.style.display="none";return;}
-  const card=findCard(selectedCardId);if(!card){m.style.display="none";return;}
+function renderMenu(){
+  const m=document.getElementById("mobile-menu"); if(sel===null){m.style.display="none";return;}
   m.style.display="block";
-  let b=groups.map((g,i)=>{const c=COLORS[i%COLORS.length];return `<button style="background:${c.bg};border-color:${c.border};color:${c.text}" onclick="mobileMoveToGroup(${i})">→ ${g.name}</button>`;}).join("");
-  if(selectedSource!=="unsorted")b+=`<button style="background:#FEE2E2;border-color:#EF4444;color:#991B1B" onclick="mobileMoveToUnsorted()">↩ 미분류로</button>`;
-  b+=`<button onclick="cancelSelect()">취소</button>`;
-  document.getElementById("mobile-card-label").textContent=card.text.length>35?card.text.substring(0,35)+"...":card.text;
+  let b=S.groups.map((g,i)=>{const c=COLORS[i%COLORS.length];return `<button style="background:${c.bg};border-color:${c.border};color:${c.text}" onclick="moveSel(${i})">→ ${esc(g.name)}</button>`;}).join("");
+  b+=`<button onclick="newGroupWithSel()">+ 새 그룹에 넣기</button>`;
+  if(selFrom!==-1)b+=`<button style="background:#FEE2E2;border-color:#EF4444;color:#991B1B" onclick="moveSel(-1)">↩ 미분류로</button>`;
+  b+=`<button onclick="unpick()">취소</button>`;
+  const t=TEXT[sel];document.getElementById("mobile-card-label").textContent=t.length>40?t.slice(0,40)+"…":t;
   document.getElementById("mobile-btns").innerHTML=b;
 }
-function onDragStart(id,src,gi){dragCardId=id;dragSource={type:src,groupIdx:gi};}
-function onDropGroup(ti){if(dragCardId===null)return;moveCard(dragCardId,dragSource,{type:"group",groupIdx:ti});dragCardId=null;dragSource=null;render();}
-function onDropUnsorted(){if(dragCardId===null||dragSource.type==="unsorted"){dragCardId=null;return;}moveCard(dragCardId,dragSource,{type:"unsorted"});dragCardId=null;dragSource=null;render();}
-function onCardClick(id,src,gi){if(selectedCardId===id){cancelSelect();return;}selectedCardId=id;selectedSource=src;selectedGroupIdx=gi;render();}
-function mobileMoveToGroup(ti){moveCard(selectedCardId,{type:selectedSource,groupIdx:selectedGroupIdx},{type:"group",groupIdx:ti});cancelSelect();render();}
-function mobileMoveToUnsorted(){moveCard(selectedCardId,{type:selectedSource,groupIdx:selectedGroupIdx},{type:"unsorted"});cancelSelect();render();}
-function cancelSelect(){selectedCardId=null;selectedSource=null;selectedGroupIdx=null;render();}
-function moveCard(id,from,to){
-  const card=findCard(id);if(!card)return;
-  if(from.type==="unsorted")unsorted=unsorted.filter(c=>c.id!==id);
-  else if(from.type==="group")groups[from.groupIdx].cards=groups[from.groupIdx].cards.filter(c=>c.id!==id);
-  if(to.type==="unsorted")unsorted.push(card);
-  else if(to.type==="group")groups[to.groupIdx].cards.push(card);
+function dStart(c,from){dragCode=c;dragFrom=from;}
+function dropTo(gi){if(dragCode===null)return;move(dragCode,dragFrom,gi);dragCode=null;render();}
+function dropUnsorted(){if(dragCode===null||dragFrom===-1){dragCode=null;return;}move(dragCode,dragFrom,-1);dragCode=null;render();}
+function pick(c,from){if(sel===c){unpick();return;}sel=c;selFrom=from;render();}
+function unpick(){sel=null;selFrom=null;render();}
+function moveSel(to){move(sel,selFrom,to);sel=null;selFrom=null;render();}
+function newGroupWithSel(){S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});moveSel(S.groups.length-1);}
+function move(c,from,to){
+  if(from===-1)S.unsorted=S.unsorted.filter(x=>x!==c); else S.groups[from].cards=S.groups[from].cards.filter(x=>x!==c);
+  if(to===-1)S.unsorted.push(c); else S.groups[to].cards.push(c);
 }
-function findCard(id){let c=unsorted.find(x=>x.id===id);if(c)return c;for(const g of groups){c=g.cards.find(x=>x.id===id);if(c)return c;}return null;}
-function addGroup(){groups.push({name:"그룹 "+(groups.length+1),cards:[]});render();}
-function startRename(i){editingGroupIdx=i;editingValue=isDefaultName(groups[i].name)?'':groups[i].name;render();}
-function finishRename(i){if(editingGroupIdx===null)return;var v=editingValue.trim();if(!v||isDefaultName(v)){groups[i].name="그룹 "+(i+1);}else{groups[i].name=v;}editingGroupIdx=null;editingValue="";render();}
-function removeGroup(i){unsorted=unsorted.concat(groups[i].cards);groups.splice(i,1);render();}
+function addGroup(){S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});render();}
+function beginRename(i){editingIdx=i;editingValue=isDefault(S.groups[i].name)?"":S.groups[i].name;render();}
+function endRename(i){if(editingIdx===null)return;const v=editingValue.trim();S.groups[i].name=(!v||isDefault(v))?"그룹 "+(i+1):v.slice(0,60);editingIdx=null;editingValue="";render();}
+function delGroup(i){if(S.groups[i].cards.length&&!confirm("이 그룹을 지우면 안의 진술문은 미분류로 돌아갑니다. 지울까요?"))return;S.unsorted=S.unsorted.concat(S.groups[i].cards);S.groups.splice(i,1);sel=null;render();}
+function openRules(){document.getElementById("rules-modal").style.display="flex";}
+function closeRules(){document.getElementById("rules-modal").style.display="none";}
 
-// 분류 완료 → 평정으로 이동
-function goToRating(){
-  if(unsorted.length>0){alert("아직 분류하지 않은 진술문이 있습니다.");return;}
-  if(groups.length<2){alert("최소 2개 이상의 그룹으로 분류해주세요.");return;}
-  if(groups.some(g=>g.cards.length===0)){alert("비어있는 그룹이 있습니다.");return;}
-  if(hasUnnamed()){alert("모든 그룹에 이름을 붙여주세요.");return;}
-  // 평정 초기화
-  ratings={};
-  ratingOrder=STATEMENTS.map((_,i)=>i+1);
-  for(let i=ratingOrder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ratingOrder[i],ratingOrder[j]]=[ratingOrder[j],ratingOrder[i]];}
-  ratingPage=0;
-  showScreen("rating-intro");
+function finishSorting(){
+  const p=problems(); if(p.length){alert("다음을 확인해 주세요.\n\n- "+p.join("\n- "));return;}
+  S.groups=S.groups.filter(g=>g.cards.length>0);
+  S.sortDoneAt=new Date().toISOString();
+  if(!S.ratingOrder.length){S.ratingOrder=shuffle(STATEMENTS.map(s=>s.code));S.ratingPage=0;}
+  save();
+  sendQuiet("sort"); // 분류 결과 중간 전송 (화면을 막지 않음)
+  show("rating-intro");
 }
-function startRatingFromIntro(){showScreen("rating");}
+function backToSorting(){show("sorting");}
 
-// ═══ 평정 로직 ═══
-function getTotalRatingPages(){return Math.ceil(ratingOrder.length/ITEMS_PER_PAGE);}
-function getPageItems(){
-  const start=ratingPage*ITEMS_PER_PAGE;
-  return ratingOrder.slice(start,start+ITEMS_PER_PAGE);
-}
-function isPageComplete(){
-  return getPageItems().every(id=>ratings[id]&&ratings[id].importance&&ratings[id].uniqueness);
-}
-function isAllRatingComplete(){
-  return ratingOrder.every(id=>ratings[id]&&ratings[id].importance&&ratings[id].uniqueness);
-}
-function setRating(id,type,val){
-  if(!ratings[id])ratings[id]={};
-  ratings[id][type]=val;
-  renderRating();
-}
+/* ---------- 평정 ---------- */
+const pages=()=>Math.ceil(S.ratingOrder.length/ITEMS_PER_PAGE);
+const pageItems=()=>S.ratingOrder.slice(S.ratingPage*ITEMS_PER_PAGE,(S.ratingPage+1)*ITEMS_PER_PAGE);
+const complete=c=>S.ratings[c]&&RATING_DIMS.every(d=>S.ratings[c][d.key]);
+function setR(c,k,v){if(!S.ratings[c])S.ratings[c]={};S.ratings[c][k]=v;save();
+  const it=document.getElementById("ri_"+c); if(it)it.classList.toggle("incomplete",!complete(c)); updRatingHead();}
+function updRatingHead(){const n=S.ratingOrder.filter(complete).length,t=S.ratingOrder.length;
+  document.getElementById("r-progress-text").textContent=n+"/"+t;document.getElementById("r-progress-fill").style.width=Math.round(n/t*100)+"%";}
 function renderRating(){
-  const totalPages=getTotalRatingPages();
-  const items=getPageItems();
-  const allDone=isAllRatingComplete();
-  const pageDone=isPageComplete();
-  const isLastPage=ratingPage===totalPages-1;
-  const totalRated=ratingOrder.filter(id=>ratings[id]&&ratings[id].importance&&ratings[id].uniqueness).length;
-  const totalItems=ratingOrder.length;
-
-  // 헤더
-  document.getElementById("r-pid").textContent=participantId;
-  document.getElementById("r-progress-text").textContent=totalRated+"/"+totalItems;
-  // 프로그레스 바
-  document.getElementById("r-progress-fill").style.width=Math.round(totalRated/totalItems*100)+"%";
-
-  // 테이블
-  let rows="";
-  items.forEach(id=>{
-    const text=STATEMENTS[id-1];
-    const r=ratings[id]||{};
-    const incomplete=(!r.importance||!r.uniqueness);
-    rows+=`<tr style="${incomplete?'background:#FEF2F2':''}">`;
-    rows+=`<td><span class="num">#${id}</span>${text}</td>`;
-    // 중요도
-    rows+=`<td><div class="rating-radio">`;
-    for(let v=1;v<=5;v++){
-      rows+=`<label><input type="radio" name="imp_${id}" value="${v}" ${r.importance===v?'checked':''} onchange="setRating(${id},'importance',${v})"><span class="r-label">${v}</span></label>`;
-    }
-    rows+=`</div></td>`;
-    // AI 고유성
-    rows+=`<td><div class="rating-radio">`;
-    for(let v=1;v<=5;v++){
-      rows+=`<label><input type="radio" name="uniq_${id}" value="${v}" ${r.uniqueness===v?'checked':''} onchange="setRating(${id},'uniqueness',${v})"><span class="r-label">${v}</span></label>`;
-    }
-    rows+=`</div></td>`;
-    rows+=`</tr>`;
-  });
-
-  document.getElementById("rating-tbody").innerHTML=rows;
-  document.getElementById("rating-page-info").textContent=`${ratingPage+1} / ${totalPages} 페이지`;
-
-  // 네비게이션
-  const prevBtn=document.getElementById("r-prev-btn");
-  prevBtn.style.display=ratingPage===0?"none":"inline-block";
-
-  const nextBtn=document.getElementById("r-next-btn");
-  const finalBtn=document.getElementById("r-final-btn");
-
-  if(isLastPage){
-    nextBtn.style.display="none";
-    finalBtn.style.display="inline-block";
-    if(allDone){finalBtn.className="final-btn";finalBtn.disabled=false;}
-    else{finalBtn.className="final-btn";finalBtn.disabled=false;}
-  }else{
-    nextBtn.style.display="inline-block";
-    finalBtn.style.display="none";
-    if(pageDone){nextBtn.className="next-btn";nextBtn.disabled=false;}
-    else{nextBtn.className="next-btn";nextBtn.disabled=false;}
-  }
+  document.getElementById("r-pid").textContent=S.pid;
+  document.getElementById("r-guide").innerHTML=RATING_DIMS.map(d=>`<strong>${d.label}</strong>: ${esc(d.q)}`).join("<br>")+`<br><span style="color:#64748B">1 = ${ANCHOR_LOW}, 5 = ${ANCHOR_HIGH}</span>`;
+  const items=pageItems();
+  document.getElementById("rating-list").innerHTML=items.map(c=>{
+    const r=S.ratings[c]||{};
+    return `<div class="r-item ${complete(c)?'':'incomplete'}" id="ri_${c}"><div class="r-text">${esc(TEXT[c])}</div>`+
+      RATING_DIMS.map(d=>`<div class="r-row"><div class="r-lab">${d.label}</div><div class="r-scale"><span class="anc">${ANCHOR_LOW}</span>`+
+        [1,2,3,4,5].map(v=>`<label><input type="radio" name="${d.key}_${c}" ${r[d.key]===v?'checked':''} onchange="setR('${c}','${d.key}',${v})"><span class="n">${v}</span></label>`).join("")+
+        `<span class="anc">${ANCHOR_HIGH}</span></div></div>`).join("")+`</div>`;
+  }).join("");
+  document.getElementById("rating-page-info").textContent=`${S.ratingPage+1} / ${pages()} 쪽`;
+  document.getElementById("r-prev-btn").style.visibility=S.ratingPage===0?"hidden":"visible";
+  const last=S.ratingPage===pages()-1;
+  document.getElementById("r-next-btn").style.display=last?"none":"inline-block";
+  document.getElementById("r-final-btn").style.display=last?"inline-block":"none";
+  updRatingHead();
 }
-function ratingPrev(){if(ratingPage>0){ratingPage--;renderRating();window.scrollTo(0,0);}}
-function ratingNext(){if(isPageComplete()){ratingPage++;renderRating();window.scrollTo(0,0);}else{alert("빨간색으로 표시된 항목의 두 척도를 모두 체크해 주세요.");}}
-function submitAll(){
-  if(!isAllRatingComplete()){alert("모든 진술문에 대해 두 척도를 평정해 주세요.");return;}
-  // 데이터 구성
-  const sortingData=groups.map(g=>({name:g.name,cards:g.cards.map(c=>({id:c.id,text:c.text}))}));
-  const ratingData=ratingOrder.map(id=>({id:id,text:STATEMENTS[id-1],importance:ratings[id].importance,uniqueness:ratings[id].uniqueness}));
-  const payload={participantId,timestamp:new Date().toISOString(),type:"full",groups:sortingData,ratings:ratingData};
+function rPrev(){if(S.ratingPage>0){S.ratingPage--;save();renderRating();window.scrollTo(0,0);}}
+function rNext(){if(pageItems().every(complete)){S.ratingPage++;save();renderRating();window.scrollTo(0,0);}else alert("표시된 진술문의 두 문항에 모두 응답해 주세요.");}
 
-  document.getElementById("done-groups").textContent=groups.length;
-  document.getElementById("done-cards").textContent=STATEMENTS.length;
-  showScreen("loading");
-
-  fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",body:JSON.stringify(payload)})
-    .then(()=>showScreen("done"))
-    .catch(err=>{console.error(err);alert("전송 오류. 인터넷 확인 후 재시도해주세요.");showScreen("rating");});
+/* ---------- 전송 ---------- */
+function payload(type){
+  return {submissionId:uuid(),type,statementSet:STATEMENT_SET,participantId:S.pid,sessionId:S.sessionId,
+    startedAt:S.startedAt,sortDoneAt:S.sortDoneAt,submittedAt:new Date().toISOString(),
+    ratingDims:RATING_DIMS.map(d=>({key:d.key,label:d.label,question:d.q})),
+    groups:S.groups.map((g,i)=>({index:i+1,name:g.name,cards:g.cards.map(c=>({code:c,text:TEXT[c]}))})),
+    ratings:type==="full"?S.ratingOrder.map(c=>Object.assign({code:c,text:TEXT[c]},Object.fromEntries(RATING_DIMS.map(d=>[d.key,S.ratings[c][d.key]])))):[]};
 }
-document.addEventListener("DOMContentLoaded",()=>showScreen("welcome"));
+async function receiptCode(p){
+  const s=JSON.stringify({g:p.groups,r:p.ratings,pid:p.participantId});
+  try{const h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).slice(0,3).map(b=>b.toString(16).padStart(2,"0")).join("").toUpperCase();}
+  catch(e){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h.toString(16).toUpperCase().slice(0,6);}
+}
+async function post(p){ // 수신 확인이 되는 전송: 성공하면 true
+  const r=await fetch(GOOGLE_SCRIPT_URL,{method:"POST",body:JSON.stringify(p)}); // text/plain 단순 요청이라 사전 요청이 없음
+  const j=await r.json(); return j&&j.ok===true;
+}
+async function sendQuiet(type){
+  try{const p=payload(type);p.receiptCode=await receiptCode(p);if(await post(p)){S.sortSent=true;save();}}catch(e){}
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function submitAll(){
+  if(!S.ratingOrder.every(complete)){alert("모든 진술문의 두 문항에 응답해 주세요.");return;}
+  const p=payload("full"); p.receiptCode=await receiptCode(p);
+  S.lastSubmit=p; save();
+  show("loading");
+  let ok=false;
+  for(const d of [0,2000,5000,10000]){ if(d){document.getElementById("load-msg").textContent="연결을 다시 시도하고 있습니다…";await wait(d);} try{ if(await post(p)){ok=true;break;} }catch(e){} }
+  if(!ok){ try{await fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",body:JSON.stringify(Object.assign({},p,{unconfirmed:true}))});}catch(e){} }
+  S.finished=ok; S.sentOk=ok; save();
+  showDone(ok,p.receiptCode);
+}
+function showDone(ok,code){
+  document.getElementById("done-code").textContent=code;
+  document.getElementById("done-ok").style.display=ok?"block":"none";
+  document.getElementById("done-fail").style.display=ok?"none":"block";
+  document.getElementById("done-title").textContent=ok?"모든 과제가 완료되었습니다":"응답은 저장되었지만 전송을 확인하지 못했습니다";
+  window.onbeforeunload=ok?null:window.onbeforeunload;
+  show("done");
+}
+async function retrySend(){
+  const p=S.lastSubmit; if(!p)return; show("loading");
+  let ok=false; try{ok=await post(p);}catch(e){}
+  S.finished=ok;S.sentOk=ok;save(); showDone(ok,p.receiptCode);
+}
+function downloadBackup(){
+  const p=S.lastSubmit||payload("full");
+  const blob=new Blob([JSON.stringify(p,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`cardsort_${String(S.pid).replace(/[^A-Za-z0-9_-]/g,"_")}_${p.receiptCode||"backup"}.json`;document.body.appendChild(a);a.click();a.remove();
+}
+async function checkConn(){
+  const el=document.getElementById("conn");
+  try{const r=await fetch(GOOGLE_SCRIPT_URL+"?ping=1");const j=await r.json();el.textContent=j.ok?"● 저장소 연결 확인됨":"";el.className="conn";}
+  catch(e){el.textContent="● 저장소 연결을 확인하지 못했습니다. 시작 전에 연구자에게 알려 주세요.";el.className="conn bad";}
+}
+window.onbeforeunload=function(){ if(S&&!S.finished&&S.screen&&S.screen!=="tutorial") return "진행 상황은 이 기기에 저장되어 있습니다. 나가시겠습니까?"; };
+document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("n-stmt").textContent=STATEMENTS.length;
+  document.querySelectorAll(".r-name").forEach(e=>e.textContent=RESEARCHER.name);
+  document.querySelectorAll(".r-phone").forEach(e=>e.textContent=RESEARCHER.phone);
+  document.querySelectorAll(".r-mail").forEach(e=>e.textContent=RESEARCHER.email);
+  document.getElementById("dim-list").innerHTML=RATING_DIMS.map(d=>`<li><strong>${d.label}</strong>: ${esc(d.q)}</li>`).join("");
+  show("welcome"); checkConn();
+});
 </script>
 
-<div id="app">
-
-<!-- ═══ 1. 시작 ═══ -->
+<!-- 1. 연구 참여 안내 -->
 <div id="welcome-screen" class="screen-wrap">
 <div class="screen-box">
-  <div style="text-align:center;font-size:44px;margin-bottom:14px">🧠</div>
-  <h1>AI 심리상담 경험 분류</h1>
-  <p class="sub">개념도 연구를 위한 진술문 분류 과제</p>
+  <div class="step-dots"><span class="on"></span><span></span><span></span></div>
+  <h1>AI 심리상담 경험 분류 및 평정</h1>
+  <p class="sub">연구 참여 안내 (1/2)</p>
   <div class="info-box">
-    <h3>📋 과제 안내</h3>
-    <p>AI와 심리적 고민을 이야기하면서 도움이 되었던 경험들이 <strong>진술문</strong>으로 제시됩니다.</p>
-    <p>의미가 비슷하다고 느끼는 진술문끼리 묶어서 <strong>그룹</strong>을 만들어 주세요.</p>
-    <div style="background:#fff;border-radius:10px;padding:14px;border:1px solid #E2E8F0;margin-top:6px">
-      <p style="font-weight:600;color:#1E293B;font-size:12px;margin-bottom:6px">규칙:</p>
-      <ul>
-        <li>각 진술문은 반드시 <strong>하나의 그룹에만</strong> 넣어주세요</li>
-        <li>모든 진술문을 하나의 그룹에 넣지 마세요</li>
-        <li>그룹의 개수는 자유입니다 (보통 3~10개)</li>
-        <li>각 그룹에는 반드시 <strong>의미를 담은 이름</strong>을 붙여주세요</li>
-      </ul>
-    </div>
-    <p style="font-size:12px;color:#94A3B8;margin-top:8px">⏱ 총 소요시간: 약 25분</p>
+    <h3>연구 목적</h3>
+    <p>이 연구는 AI에게 반복적으로 심리상담을 받는 경험에서 사람들이 느끼는 심리적 효용이 어떤 요인으로 구성되는지 알아보고, 그 요인들의 관계를 그림으로 구조화하는 개념도 연구입니다. (연구제목: AI 심리상담 반복 사용자가 지각하는 심리적 효용의 경험 구조: 개념도 연구 / 충북대학교 생명윤리심의위원회 승인 CBNU-2026-A-0140)</p>
   </div>
-  <label class="id-label">참여자 ID (연구자가 안내한 ID를 입력하세요)</label>
-  <input type="text" id="pid-input" class="id-input" placeholder="예: P01">
-  <button class="btn-primary" onclick="goToTutorial()">다음: 방법 안내 보기 →</button>
+  <div class="info-box">
+    <h3>과제 내용과 소요 시간</h3>
+    <ul>
+      <li><strong>분류</strong>: 1차 면접에서 모은 진술문 <span id="n-stmt"></span>개를 읽고, 의미가 비슷하다고 느끼는 것끼리 그룹으로 묶은 뒤 각 그룹에 이름을 붙입니다.</li>
+      <li><strong>평정</strong>: 각 진술문에 두 가지 문항으로 1점부터 5점까지 응답합니다.</li>
+      <li><strong>소요 시간</strong>: 약 60분입니다. 다른 사람과 의논하지 않고 혼자 진행합니다.</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <h3>수집하는 자료</h3>
+    <ul>
+      <li>연구자가 안내한 참여자 ID, 분류 결과(그룹과 그룹 이름), 평정 응답, 과제를 시작하고 제출한 시각</li>
+      <li>이름, 연락처 등 개인을 직접 알아볼 수 있는 정보는 이 화면에서 수집하지 않습니다.</li>
+      <li>자료는 암호화된 클라우드 스프레드시트에 저장되며 연구책임자와 참여연구원만 볼 수 있습니다.</li>
+      <li>진행 중인 응답은 중간에 끊겨도 이어서 할 수 있도록 지금 쓰는 기기의 브라우저에 임시로 저장됩니다.</li>
+    </ul>
+  </div>
+  <button class="btn-primary" onclick="goConsent()">다음 →</button>
 </div></div>
 
-<!-- ═══ 2. 튜토리얼 ═══ -->
+<!-- 2. 참여 전 확인 및 동의 -->
+<div id="consent-screen" class="screen-wrap" style="display:none">
+<div class="screen-box">
+  <div class="step-dots"><span class="on"></span><span class="on"></span><span></span></div>
+  <h2>참여 전 확인</h2>
+  <p class="sub">연구 참여 안내 (2/2)</p>
+  <div class="info-box">
+    <h3>자발적 참여와 중단</h3>
+    <p>참여는 자유로운 의사에 따르며, 언제든 과제를 멈추거나 그만둘 수 있습니다. 그만두어도 불이익은 없습니다. 분류를 마치면 분류 결과가 먼저 전송되고, 평정까지 마치고 제출하면 나머지가 전송됩니다. 중간에 그만두실 때 이미 전송된 자료를 지우기를 원하시면 연구 담당자에게 알려 주세요.</p>
+  </div>
+  <div class="info-box">
+    <h3>불편함이 생길 때</h3>
+    <p>면접 중이나 이후에 정서적 어려움이 있으시면 24시간 자살예방상담전화(109)를 비롯한 상담 자원을 안내받을 수 있고, 필요 시 연구자가 전문기관 연계를 돕습니다. 본 연구 참여로 인하여 심리적 불편 및 부작용이 발생한 경우, 담당 연구원에게 연락해 주시기 바랍니다. 담당 연구원이 구체적인 내용을 파악한 후 연구팀 내 상담전문가의 상담 및 유관 기관 연계를 진행할 것입니다.</p>
+    <p style="margin-top:6px">연구 담당자: <span class="r-name"></span> (<span class="r-phone"></span>, <span class="r-mail"></span>)<br>연구대상자의 권리에 관한 문의: 충북대학교 생명윤리심의위원회 (043-261-3903)</p>
+  </div>
+  <div class="consent-note">아래에 참여자 ID를 입력하고 <strong>[동의하고 시작]</strong>을 누르면, 앞의 안내를 읽고 이 과제에 참여하는 데 동의한 것으로 봅니다.</div>
+  <label class="id-label" for="pid-input">참여자 ID (연구자가 안내한 ID)</label>
+  <input type="text" id="pid-input" class="id-input" placeholder="예: P01" autocomplete="off" onkeydown="if(event.key==='Enter')startWithId()">
+  <button class="btn-primary" onclick="startWithId()">동의하고 시작</button>
+  <button class="btn-line" onclick="show('welcome')">← 안내 다시 보기</button>
+  <div id="conn" class="conn"></div>
+</div></div>
+
+<!-- 이어하기 -->
+<div id="resume-modal" class="modal"><div class="screen-box" style="max-width:420px">
+  <h2>이어서 하시겠습니까?</h2><p class="sub" id="resume-info"></p>
+  <button class="btn-primary" onclick="resume(true)">저장된 곳부터 이어서 하기</button>
+  <button class="btn-line" onclick="if(confirm('저장된 진행 상태를 지우고 처음부터 시작합니다.'))resume(false)">처음부터 다시 하기</button>
+</div></div>
+
+<!-- 3. 방법 안내 -->
 <div id="tutorial-screen" class="screen-wrap" style="display:none">
-<div class="screen-box" style="max-width:640px">
-  <div style="text-align:center;font-size:36px;margin-bottom:8px">📖</div>
-  <h2>진술문 분류 방법 안내</h2>
-  <p class="sub">3단계로 진행됩니다</p>
+<div class="screen-box">
+  <div class="step-dots"><span class="on"></span><span class="on"></span><span class="on"></span></div>
+  <h2>분류 방법 안내</h2>
+  <p class="sub">정답은 없습니다. 내가 느끼는 대로 묶어 주세요.</p>
   <div class="tut-steps">
-    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#818CF8,#667EEA)">1</div><div class="body"><h4>그룹 만들기</h4><p>"+ 새 그룹 만들기" 버튼을 눌러 그룹을 만드세요. 그룹 수는 자유입니다.</p></div></div>
-    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#F59E0B,#D97706)">2</div><div class="body"><h4>진술문을 그룹에 넣기</h4><p>왼쪽의 진술문을 <strong>끌어서</strong> 오른쪽 그룹에 놓으세요. 모바일에서는 진술문을 <strong>탭</strong>한 뒤 이동할 그룹을 선택하세요.</p></div></div>
-    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#22C55E,#16A34A)">3</div><div class="body"><h4>그룹 이름 붙이기 (필수)</h4><p>그룹 이름을 클릭하여, 진술문들의 <strong>공통 의미를 짧게 요약</strong>한 이름으로 바꿔주세요.</p></div></div>
+    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#818CF8,#667EEA)">1</div><div class="body"><h4>그룹 만들기</h4><p>"+ 새 그룹 만들기"를 눌러 그룹을 만드세요. 그룹 수는 자유롭게 정합니다.</p></div></div>
+    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#F59E0B,#D97706)">2</div><div class="body"><h4>진술문을 그룹에 넣기</h4><p>왼쪽 진술문을 <strong>끌어서</strong> 그룹에 놓으세요. 모바일에서는 진술문을 <strong>누른 뒤</strong> 넣을 그룹을 고르세요.</p></div></div>
+    <div class="tut-step"><div class="icon" style="background:linear-gradient(135deg,#22C55E,#16A34A)">3</div><div class="body"><h4>그룹 이름 붙이기</h4><p>그룹 이름을 눌러, 그 안의 진술문들이 공통으로 뜻하는 바를 짧게 적어 주세요.</p></div></div>
   </div>
-  <div class="tut-demo"><div class="tut-demo-title">▼ 예시 ▼</div>
+  <div class="info-box">
+    <h3>지켜 주실 규칙</h3>
+    <ul>
+      <li>각 진술문은 <strong>한 그룹에만</strong> 넣습니다.</li>
+      <li>모든 진술문을 <strong>한 그룹에 몰아넣지 않습니다</strong>. 그룹은 2개 이상이어야 합니다.</li>
+      <li>그룹마다 진술문을 <strong>2개 이상</strong> 넣습니다. <strong>진술문 1개만 있는 그룹은 만들 수 없습니다.</strong></li>
+      <li>모든 그룹에 <strong>의미를 담은 이름</strong>을 붙입니다.</li>
+    </ul>
+    <div class="rule-key"><p><strong>왜 1개짜리 그룹을 만들 수 없나요?</strong> 이 연구는 여러분이 어떤 진술문들을 <strong>함께</strong> 묶었는지를 모아 분석합니다. 진술문 하나만 따로 두면 그 진술문이 다른 어떤 진술문과 가까운지에 대한 정보가 남지 않습니다. 어느 그룹에도 꼭 맞지 않는 진술문이 있다면, <strong>그나마 가장 가깝다고 느끼는 그룹</strong>에 넣어 주세요.</p></div>
+  </div>
+  <div class="tut-demo"><div class="tut-demo-title">예시</div>
     <div class="tut-demo-layout">
-      <div class="tut-demo-left"><div class="tut-label">📦 미분류 진술문</div><div class="tut-mini-card">고등어</div><div class="tut-mini-card drag-demo">바나나</div><div class="tut-mini-card">참외</div></div>
-      <div class="tut-demo-right"><div class="tut-label">📂 그룹 영역</div><div class="tut-mini-group"><div class="tut-mini-group-name">날아다니는 것 ✏️</div><div class="tut-mini-card">참새</div><div class="tut-mini-card">독수리</div></div><div class="tut-mini-group g2"><div class="tut-mini-group-name">노란색인 것 ✏️</div><div class="tut-mini-card">레몬</div></div></div>
+      <div class="tut-demo-left"><div class="tut-label">미분류 진술문</div><div class="tut-mini-card">고등어</div><div class="tut-mini-card">참외</div></div>
+      <div class="tut-demo-right"><div class="tut-label">그룹</div>
+        <div class="tut-mini-group"><div class="tut-mini-group-name">날아다니는 것 ✏️</div><div class="tut-mini-card">참새</div><div class="tut-mini-card">독수리</div></div>
+        <div class="tut-mini-group g2"><div class="tut-mini-group-name">노란색인 것 ✏️</div><div class="tut-mini-card">레몬</div><div class="tut-mini-card drag-demo">바나나</div></div>
+        <div class="tut-mini-group bad"><div class="tut-mini-group-name">바다에 사는 것</div><div class="tut-mini-card">고래</div><div class="tut-x">진술문이 1개뿐이라 다음 단계로 갈 수 없습니다. 하나를 더 넣거나 고래를 다른 그룹으로 옮기세요.</div></div>
+      </div>
     </div>
   </div>
-  <div class="tut-tip"><p>💡 <strong>정답은 없습니다.</strong> 본인이 느끼는 대로 자유롭게 분류하세요.</p></div>
-  <button class="btn-primary btn-green" onclick="startSorting()">분류 시작하기 →</button>
+  <div class="tut-tip"><p>진행 상황은 자동으로 저장됩니다. 창이 닫혀도 같은 기기에서 같은 ID를 입력하면 이어서 할 수 있습니다. 분류 중에도 오른쪽 위 <strong>[규칙 보기]</strong>로 이 안내를 다시 볼 수 있습니다.</p></div>
+  <button class="btn-primary btn-green" onclick="show('sorting')">분류 시작하기 →</button>
 </div></div>
 
-<!-- ═══ 3. 소팅 ═══ -->
+<!-- 4. 분류 -->
 <div id="sorting-screen" style="display:none">
   <div class="header"><div class="header-inner">
-    <div class="header-left">🧠 진술문 분류 <span>참여자: <span id="h-pid"></span></span></div>
+    <div class="header-left">진술문 분류 <span>참여자: <span id="h-pid"></span></span></div>
     <div class="header-right">
+      <span class="saved"></span>
       <div class="progress-wrap"><div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div><span id="progress-text" class="progress-text"></span></div>
-      <button id="sort-submit-btn" class="submit-btn disabled" disabled onclick="goToRating()">평정으로 →</button>
+      <button class="help-btn" onclick="openRules()">규칙 보기</button>
+      <button id="sort-submit-btn" class="submit-btn disabled" onclick="finishSorting()">분류 완료 →</button>
     </div>
   </div></div>
-  <div id="name-alert" class="name-alert-bar"></div>
+  <div id="sort-alert" class="alert-bar"></div>
   <div class="main">
-    <div class="left-panel" ondragover="event.preventDefault()" ondrop="onDropUnsorted()">
-      <div class="unsorted-box"><h3>📦 미분류 진술문</h3><p class="hint"><span id="unsorted-count"></span> — 진술문을 끌어서 오른쪽 그룹에 놓으세요</p><div id="unsorted-list"></div></div>
+    <div class="left-panel" ondragover="event.preventDefault()" ondrop="dropUnsorted()">
+      <div class="unsorted-box"><h3>미분류 진술문</h3><p class="hint"><span id="unsorted-count"></span>, 끌어서 오른쪽 그룹에 놓으세요</p><div id="unsorted-list"></div></div>
     </div>
     <div class="right-panel">
-      <div class="groups-header"><h3>📂 그룹 영역</h3><button class="add-group-btn" onclick="addGroup()">+ 새 그룹 만들기</button></div>
+      <div class="groups-header"><h3>그룹 (그룹마다 진술문 2개 이상)</h3><button class="add-group-btn" onclick="addGroup()">+ 새 그룹 만들기</button></div>
       <div id="groups-area"></div>
     </div>
   </div>
-  <div id="mobile-menu" class="mobile-menu" style="display:none"><div class="label"><strong>선택된 진술문:</strong> <span id="mobile-card-label"></span></div><div id="mobile-btns" class="btns"></div></div>
+  <div id="mobile-menu" class="mobile-menu" style="display:none"><div class="label"><strong>선택한 진술문:</strong> <span id="mobile-card-label"></span></div><div id="mobile-btns" class="btns"></div></div>
 </div>
 
-<!-- ═══ 4. 평정 안내 ═══ -->
-<div id="rating-intro-screen" class="screen-wrap" style="display:none">
-<div class="screen-box">
-  <div style="text-align:center;font-size:44px;margin-bottom:14px">✅</div>
-  <h2>진술문 분류 완료!</h2>
-  <p class="sub">이어서 평정을 진행합니다</p>
-  <div class="info-box">
-    <h3>📊 평정 안내</h3>
-    <p>각 경험에 대해 <strong>두 가지</strong>에 답해주세요.</p>
-    <div style="background:#fff;border-radius:10px;padding:14px;border:1px solid #E2E8F0;margin-top:8px">
-      <p style="font-size:12px;color:#1E293B;font-weight:700;margin-bottom:8px;">척도 1. 중요도</p>
-      <p style="font-size:11px;color:#64748B;line-height:1.6;margin-bottom:12px">"이 경험은 AI 심리상담을 전반적으로 이해하는 데 얼마나 중요하다고 생각하십니까?"<br>1=전혀 중요하지 않다 ~ 5=매우 중요하다</p>
-      <p style="font-size:12px;color:#1E293B;font-weight:700;margin-bottom:8px;">척도 2. AI 고유성</p>
-      <p style="font-size:11px;color:#64748B;line-height:1.6">"이 경험은 상담 대상이 사람이 아닌 AI이기 때문에 가능했다고 생각하십니까?"<br>1=전혀 그렇지 않다 (사람에게도 충분히 가능) ~ 5=매우 그렇다 (AI이기에 가능)</p>
-    </div>
-  </div>
-  <div class="tut-tip"><p>💡 소요시간은 약 <strong>10분</strong>입니다. 직관적으로 응답해 주세요.</p></div>
-  <button class="btn-primary btn-green" onclick="startRatingFromIntro()">평정 시작하기 →</button>
+<!-- 규칙 모달 -->
+<div id="rules-modal" class="modal" onclick="if(event.target===this)closeRules()"><div class="screen-box" style="max-width:520px">
+  <h2>분류 규칙</h2><p class="sub">정답은 없습니다</p>
+  <div class="info-box"><ul>
+    <li>각 진술문은 한 그룹에만 넣습니다.</li>
+    <li>모든 진술문을 한 그룹에 몰아넣지 않습니다. 그룹은 2개 이상입니다.</li>
+    <li>그룹마다 진술문을 2개 이상 넣습니다. 진술문 1개만 있는 그룹은 만들 수 없습니다.</li>
+    <li>모든 그룹에 의미를 담은 이름을 붙입니다.</li>
+  </ul>
+  <div class="rule-key"><p>어느 그룹에도 꼭 맞지 않는 진술문은 그나마 가장 가깝다고 느끼는 그룹에 넣어 주세요. 이 연구는 진술문들이 서로 얼마나 함께 묶이는지를 분석하기 때문입니다.</p></div></div>
+  <button class="btn-primary" onclick="closeRules()">확인</button>
 </div></div>
 
-<!-- ═══ 5. 평정 ═══ -->
+<!-- 5. 평정 안내 -->
+<div id="rating-intro-screen" class="screen-wrap" style="display:none">
+<div class="screen-box">
+  <h2>분류를 마쳤습니다</h2>
+  <p class="sub">이어서 평정을 진행합니다. 분류 결과는 저장되었습니다.</p>
+  <div class="info-box">
+    <h3>평정 안내</h3>
+    <p>진술문을 하나씩 읽고, 아래 두 문항에 1점부터 5점까지 응답해 주세요. (1 = 전혀 그렇지 않다, 5 = 매우 그렇다)</p>
+    <ul id="dim-list"></ul>
+    <p style="margin-top:6px">진술문은 무작위 순서로 한 쪽에 10개씩 나옵니다. 오래 고민하지 말고 떠오르는 대로 응답해 주세요.</p>
+  </div>
+  <button class="btn-primary btn-green" onclick="show('rating')">평정 시작하기 →</button>
+  <button class="btn-line" onclick="backToSorting()">← 분류 다시 보기</button>
+</div></div>
+
+<!-- 6. 평정 -->
 <div id="rating-screen" style="display:none">
-  <div class="rating-header"><div class="rating-header-inner">
-    <div class="rating-header-left">📊 평정 <span>참여자: <span id="r-pid"></span></span></div>
-    <div class="header-right">
-      <div class="progress-wrap"><div class="progress-bar"><div id="r-progress-fill" class="progress-fill" style="width:0%"></div></div><span id="r-progress-text" class="progress-text">0/20</span></div>
-    </div>
+  <div class="header"><div class="header-inner">
+    <div class="header-left">평정 <span>참여자: <span id="r-pid"></span></span></div>
+    <div class="header-right"><span class="saved"></span><div class="progress-wrap"><div class="progress-bar"><div id="r-progress-fill" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#667EEA,#764BA2)"></div></div><span id="r-progress-text" class="progress-text"></span></div></div>
   </div></div>
   <div class="rating-container">
-    <div class="rating-guide">
-      <p><strong>척도 1 — 중요도:</strong> 이 경험이 AI 심리상담을 이해하는 데 얼마나 중요합니까? (1=전혀~5=매우)<br>
-      <strong>척도 2 — AI 고유성:</strong> 이 경험은 AI이기 때문에 가능했습니까? (1=사람에게도 가능~5=AI이기에 가능)</p>
-    </div>
-    <div class="rating-table"><table>
-      <thead>
-        <tr>
-          <th>진술문</th>
-          <th>
-            <div class="scale-header">중요도</div>
-            <div class="scale-anchors"><span>전혀</span><span>매우</span></div>
-          </th>
-          <th>
-            <div class="scale-header">AI 고유성</div>
-            <div class="scale-anchors"><span>사람도 가능</span><span>AI이기에</span></div>
-          </th>
-        </tr>
-      </thead>
-      <tbody id="rating-tbody"></tbody>
-    </table></div>
+    <div class="rating-guide"><p id="r-guide"></p></div>
+    <div id="rating-list"></div>
     <div class="rating-nav">
-      <button id="r-prev-btn" class="prev-btn" onclick="ratingPrev()" style="display:none">← 이전</button>
+      <button id="r-prev-btn" class="prev-btn" onclick="rPrev()">← 이전</button>
       <span id="rating-page-info" class="rating-page-info"></span>
-      <button id="r-next-btn" class="next-btn" onclick="ratingNext()">다음 →</button>
+      <button id="r-next-btn" class="next-btn" onclick="rNext()">다음 →</button>
       <button id="r-final-btn" class="final-btn" onclick="submitAll()" style="display:none">제출하기 ✓</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ 6. 로딩 ═══ -->
+<!-- 7. 전송 중 -->
 <div id="loading-screen" class="loading-overlay" style="display:none">
-<div class="loading-box"><div class="spinner"></div><p style="font-size:15px;font-weight:600;color:#334155">데이터를 전송하고 있습니다...</p><p style="font-size:12px;color:#94A3B8;margin-top:6px">잠시만 기다려주세요</p></div>
+<div class="loading-box"><div class="spinner"></div><p style="font-size:15px;font-weight:600;color:#334155">응답을 전송하고 있습니다</p><p id="load-msg" style="font-size:12px;color:#94A3B8;margin-top:6px">창을 닫지 말고 잠시 기다려 주세요</p></div>
 </div>
 
-<!-- ═══ 7. 완료 ═══ -->
+<!-- 8. 완료 -->
 <div id="done-screen" class="screen-wrap" style="display:none">
-<div class="screen-box" style="text-align:center;max-width:480px">
-  <div style="font-size:56px">🎉</div>
-  <h1 style="margin-top:16px">모든 과제가 완료되었습니다!</h1>
-  <p style="font-size:14px;color:#64748B;line-height:1.6;margin-top:8px">소중한 참여에 진심으로 감사드립니다.</p>
-  <p style="font-size:13px;color:#94A3B8;margin-top:4px"><span id="done-groups"></span>개의 그룹으로 <span id="done-cards"></span>개의 진술문을 분류하고 평정을 완료하셨습니다.</p>
-  <div class="done-info"><p>📩 결과가 연구자에게 자동 전송되었습니다.<br>이 페이지를 닫으셔도 됩니다.</p></div>
+<div class="screen-box" style="text-align:center;max-width:500px">
+  <h1 id="done-title" style="margin-top:4px"></h1>
+  <p style="font-size:13px;color:#64748B;margin-top:10px">확인 코드</p>
+  <div class="code-big" id="done-code"></div>
+  <div id="done-ok" class="done-info"><p>응답이 연구자에게 전송되어 저장된 것을 확인했습니다.<br>확인 코드를 연구자에게 알려 주시면 됩니다. 이제 창을 닫으셔도 됩니다.</p></div>
+  <div id="done-fail" class="warn-info" style="display:none">
+    <p>응답은 이 기기에 안전하게 저장되어 있습니다. 인터넷 연결을 확인한 뒤 <strong>[다시 전송]</strong>을 눌러 주세요.</p>
+    <p>그래도 안 되면 <strong>[응답 파일 저장]</strong>을 눌러 받은 파일을 연구자 이메일(<span class="r-mail"></span>)로 보내 주세요.</p>
+    <button class="btn-primary" style="margin-top:8px" onclick="retrySend()">다시 전송</button>
+  </div>
+  <button class="btn-line" onclick="downloadBackup()">응답 파일 저장</button>
+  <div class="support">참여해 주셔서 감사합니다. 과제 중이나 이후에 마음이 불편하시면 24시간 자살예방상담전화(109)에 연락하시거나 연구 담당자(<span class="r-name"></span>, <span class="r-phone"></span>)에게 알려 주세요.</div>
 </div></div>
-
-</div>
 </body>
 </html>
