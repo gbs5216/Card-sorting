@@ -155,6 +155,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:#F1F5F9;}
 .screen-box{padding:28px 18px;}
 .r-lab{width:100%;}
 }
+.top-back{display:inline-flex;align-items:center;gap:4px;background:#F1F5F9;border:1px solid #CBD5E1;color:#334155;font-size:14px;font-weight:600;cursor:pointer;padding:8px 14px;border-radius:10px;margin-bottom:10px;font-family:inherit;}
+.top-back:hover{background:#E2E8F0;}
+.undo-btn{padding:8px 12px;background:#fff;border:1px solid #CBD5E1;border-radius:8px;font-size:12px;font-weight:600;color:#475569;cursor:pointer;font-family:inherit;}
+.undo-btn:disabled{opacity:.4;cursor:default;}
+.back-btn{padding:7px 12px;border:1px solid #CBD5E1;background:#F8FAFC;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit;color:#334155;font-weight:600;}
+.r-item.flash{box-shadow:0 0 0 3px #F87171;}
 </style>
 </head>
 <body>
@@ -302,12 +308,43 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 function esc(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
 /* ---------- 화면 ---------- */
+let UNDO=[];
+function snap(){UNDO.push(JSON.stringify({u:S.unsorted,g:S.groups}));if(UNDO.length>50)UNDO.shift();}
+function undo(){if(!UNDO.length)return;const o=JSON.parse(UNDO.pop());S.unsorted=o.u;S.groups=o.g;sel=null;selFrom=null;editingIdx=null;render();}
 const SCREENS=["welcome","consent","tutorial","sorting","rating-intro","rating","loading","done"];
-function show(n){
+let curScreen=null, sortScrollY=0;
+function show(n,fromPop){
+  if(curScreen==="sorting"&&n!=="sorting")sortScrollY=window.scrollY;
+  if(!fromPop&&curScreen&&curScreen!==n&&n!=="loading"){try{history.pushState({s:n},"");}catch(e){}}
+  curScreen=n;
+  if(n==="tutorial"){const b=document.getElementById("tut-go-btn");const going=S&&(S.groups.length>0||S.unsorted.length<STATEMENTS.length);b.textContent=going?"분류 화면으로 돌아가기 →":"분류 시작하기 →";}
   SCREENS.forEach(s=>{const el=document.getElementById(s+"-screen");if(el)el.style.display=s===n?((s==="sorting"||s==="rating")?"block":"flex"):"none";});
   if(S&&["sorting","rating-intro","rating"].includes(n)){S.screen=n;save();}
-  if(n==="sorting")render(); if(n==="rating")renderRating(); window.scrollTo(0,0);
+  if(n==="sorting")render(); if(n==="rating")renderRating();
+  window.scrollTo(0,n==="sorting"?sortScrollY:0);
 }
+const PREV={consent:"welcome",tutorial:"consent",sorting:"tutorial","rating-intro":"sorting",rating:"rating-intro"};
+function goPrev(){ // 화면의 [← 이전] 버튼: 휴대폰 뒤로 가기와 같은 규칙
+  if(goBack()==="stay")return;
+  const t=PREV[curScreen]; if(t)show(t);
+}
+/* 휴대폰·브라우저의 뒤로 가기: 사이트를 떠나지 않고 이전 화면으로 */
+function goBack(){
+  if(document.getElementById("rules-modal").style.display==="flex"){closeRules();return "stay";}
+  if(curScreen==="sorting"&&sel!==null){unpick();return "stay";}
+  if(curScreen==="loading"||curScreen==="done")return "stay";
+  if(curScreen==="rating"&&S&&S.ratingPage>0){rPrev();return "stay";}
+  return null;
+}
+window.addEventListener("popstate",e=>{
+  if(goBack()==="stay"){try{history.pushState({s:curScreen},"");}catch(x){}return;}
+  let t=(e.state&&e.state.s)||"welcome";
+  if(["tutorial","sorting","rating-intro","rating"].includes(t)&&!S)t="welcome";
+  if(["rating-intro","rating"].includes(t)&&S&&!S.sortDoneAt)t="sorting";
+  if(["rating-intro","rating"].includes(t)&&S&&problems().length)t="sorting";
+  if(t==="loading"||t==="done")t=curScreen;
+  show(t,true);
+});
 function goConsent(){show("consent");}
 function startWithId(){
   const pid=document.getElementById("pid-input").value.trim();
@@ -347,6 +384,7 @@ function render(){
   document.getElementById("h-pid").textContent=S.pid;
   const pf=document.getElementById("progress-fill");pf.style.width=pct+"%";pf.style.background=pct===100?"#22C55E":"linear-gradient(90deg,#667EEA,#764BA2)";
   document.getElementById("progress-text").textContent=done+"/"+total;
+  document.getElementById("undo-btn").disabled=UNDO.length===0;
   const probs=problems(),ok=probs.length===0;
   const sb=document.getElementById("sort-submit-btn");sb.className=ok?"submit-btn active":"submit-btn disabled";
   const ul=document.getElementById("unsorted-list");
@@ -385,20 +423,21 @@ function renderMenu(){
   document.getElementById("mobile-btns").innerHTML=b;
 }
 function dStart(c,from){dragCode=c;dragFrom=from;}
-function dropTo(gi){if(dragCode===null)return;move(dragCode,dragFrom,gi);dragCode=null;render();}
+function dropTo(gi){if(dragCode===null)return;if(dragFrom===gi){dragCode=null;return;}move(dragCode,dragFrom,gi);dragCode=null;render();}
 function dropUnsorted(){if(dragCode===null||dragFrom===-1){dragCode=null;return;}move(dragCode,dragFrom,-1);dragCode=null;render();}
 function pick(c,from){if(sel===c){unpick();return;}sel=c;selFrom=from;render();}
 function unpick(){sel=null;selFrom=null;render();}
-function moveSel(to){move(sel,selFrom,to);sel=null;selFrom=null;render();}
-function newGroupWithSel(){S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});moveSel(S.groups.length-1);}
-function move(c,from,to){
+function moveSel(to,noSnap){move(sel,selFrom,to,noSnap);sel=null;selFrom=null;render();}
+function newGroupWithSel(){snap();S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});moveSel(S.groups.length-1,true);}
+function move(c,from,to,noSnap){
+  if(!noSnap)snap();
   if(from===-1)S.unsorted=S.unsorted.filter(x=>x!==c); else S.groups[from].cards=S.groups[from].cards.filter(x=>x!==c);
   if(to===-1)S.unsorted.push(c); else S.groups[to].cards.push(c);
 }
-function addGroup(){S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});render();}
+function addGroup(){snap();S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});render();}
 function beginRename(i){editingIdx=i;editingValue=isDefault(S.groups[i].name)?"":S.groups[i].name;render();}
-function endRename(i){if(editingIdx===null)return;const v=editingValue.trim();S.groups[i].name=(!v||isDefault(v))?"그룹 "+(i+1):v.slice(0,60);editingIdx=null;editingValue="";render();}
-function delGroup(i){if(S.groups[i].cards.length&&!confirm("이 그룹을 지우면 안의 진술문은 미분류로 돌아갑니다. 지울까요?"))return;S.unsorted=S.unsorted.concat(S.groups[i].cards);S.groups.splice(i,1);sel=null;render();}
+function endRename(i){if(editingIdx===null)return;const v=editingValue.trim();const nn=(!v||isDefault(v))?"그룹 "+(i+1):v.slice(0,60);if(nn!==S.groups[i].name)snap();S.groups[i].name=(!v||isDefault(v))?"그룹 "+(i+1):v.slice(0,60);editingIdx=null;editingValue="";render();}
+function delGroup(i){if(S.groups[i].cards.length&&!confirm("이 그룹을 지우면 안의 진술문은 미분류로 돌아갑니다. 지울까요?"))return;snap();S.unsorted=S.unsorted.concat(S.groups[i].cards);S.groups.splice(i,1);sel=null;render();}
 function openRules(){document.getElementById("rules-modal").style.display="flex";}
 function closeRules(){document.getElementById("rules-modal").style.display="none";}
 
@@ -433,14 +472,15 @@ function renderRating(){
         `<span class="anc">${ANCHOR_HIGH}</span></div></div>`).join("")+`</div>`;
   }).join("");
   document.getElementById("rating-page-info").textContent=`${S.ratingPage+1} / ${pages()} 쪽`;
-  document.getElementById("r-prev-btn").style.visibility=S.ratingPage===0?"hidden":"visible";
+  document.getElementById("r-prev-btn").textContent=S.ratingPage===0?"← 평정 안내로":"← 이전 쪽";
   const last=S.ratingPage===pages()-1;
   document.getElementById("r-next-btn").style.display=last?"none":"inline-block";
   document.getElementById("r-final-btn").style.display=last?"inline-block":"none";
   updRatingHead();
 }
-function rPrev(){if(S.ratingPage>0){S.ratingPage--;save();renderRating();window.scrollTo(0,0);}}
-function rNext(){if(pageItems().every(complete)){S.ratingPage++;save();renderRating();window.scrollTo(0,0);}else alert("표시된 진술문의 두 문항에 모두 응답해 주세요.");}
+function rPrev(){if(S.ratingPage>0){S.ratingPage--;save();renderRating();window.scrollTo(0,0);}else show("rating-intro");}
+function rNext(){if(pageItems().every(complete)){S.ratingPage++;save();renderRating();window.scrollTo(0,0);}else{alert("표시된 진술문의 두 문항에 모두 응답해 주세요. 빠진 곳으로 이동합니다.");flashMissing();}}
+function flashMissing(){const el=document.querySelector("#rating-list .r-item.incomplete");if(!el)return;el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);}
 
 /* ---------- 전송 ---------- */
 function payload(type){
@@ -464,7 +504,8 @@ async function sendQuiet(type){
 }
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function submitAll(){
-  if(!S.ratingOrder.every(complete)){alert("모든 진술문의 두 문항에 응답해 주세요.");return;}
+  if(problems().length){alert("분류에 확인할 곳이 있습니다. 분류 화면으로 이동합니다.");show("sorting");return;}
+  if(!S.ratingOrder.every(complete)){const miss=S.ratingOrder.findIndex(c=>!complete(c));S.ratingPage=Math.floor(miss/ITEMS_PER_PAGE);save();renderRating();alert("응답하지 않은 문항이 있습니다. 빠진 곳으로 이동합니다.");flashMissing();return;}
   const p=payload("full"); p.receiptCode=await receiptCode(p);
   S.lastSubmit=p; save();
   show("loading");
@@ -504,6 +545,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.querySelectorAll(".r-phone").forEach(e=>e.textContent=RESEARCHER.phone);
   document.querySelectorAll(".r-mail").forEach(e=>e.textContent=RESEARCHER.email);
   document.getElementById("dim-list").innerHTML=RATING_DIMS.map(d=>`<li><strong>${d.label}</strong>: ${esc(d.q)}</li>`).join("");
+  try{history.replaceState({s:"welcome"},"");}catch(e){}
   show("welcome"); checkConn();
 });
 </script>
@@ -541,6 +583,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 <!-- 2. 참여 전 확인 및 동의 -->
 <div id="consent-screen" class="screen-wrap" style="display:none">
 <div class="screen-box">
+  <button class="top-back" onclick="goPrev()">← 이전</button>
   <div class="step-dots"><span class="on"></span><span class="on"></span><span></span></div>
   <h2>참여 전 확인</h2>
   <p class="sub">연구 참여 안내 (2/2)</p>
@@ -557,7 +600,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   <label class="id-label" for="pid-input">참여자 ID (연구자가 안내한 ID)</label>
   <input type="text" id="pid-input" class="id-input" placeholder="예: P01" autocomplete="off" onkeydown="if(event.key==='Enter')startWithId()">
   <button class="btn-primary" onclick="startWithId()">동의하고 시작</button>
-  <button class="btn-line" onclick="show('welcome')">← 안내 다시 보기</button>
+  <button class="btn-line" onclick="goPrev()">← 이전</button>
   <div id="conn" class="conn"></div>
 </div></div>
 
@@ -571,6 +614,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 <!-- 3. 방법 안내 -->
 <div id="tutorial-screen" class="screen-wrap" style="display:none">
 <div class="screen-box">
+  <button class="top-back" onclick="goPrev()">← 이전</button>
   <div class="step-dots"><span class="on"></span><span class="on"></span><span class="on"></span></div>
   <h2>분류 방법 안내</h2>
   <p class="sub">정답은 없습니다. 내가 느끼는 대로 묶어 주세요.</p>
@@ -599,8 +643,9 @@ document.addEventListener("DOMContentLoaded",()=>{
       </div>
     </div>
   </div>
-  <div class="tut-tip"><p>진행 상황은 자동으로 저장됩니다. 창이 닫혀도 같은 기기에서 같은 ID를 입력하면 이어서 할 수 있습니다. 분류 중에도 오른쪽 위 <strong>[규칙 보기]</strong>로 이 안내를 다시 볼 수 있습니다.</p></div>
-  <button class="btn-primary btn-green" onclick="show('sorting')">분류 시작하기 →</button>
+  <div class="tut-tip"><p>진행 상황은 자동으로 저장됩니다. 창이 닫혀도 같은 기기에서 같은 ID를 입력하면 이어서 할 수 있습니다. 분류 중에도 위쪽 <strong>[← 이전 (방법 안내)]</strong>를 누르거나 휴대폰의 뒤로 가기를 누르면 이 안내로 돌아올 수 있고, 만들던 분류는 그대로 남아 있습니다.</p></div>
+  <button id="tut-go-btn" class="btn-primary btn-green" onclick="show('sorting')">분류 시작하기 →</button>
+  <button class="btn-line" onclick="goPrev()">← 이전</button>
 </div></div>
 
 <!-- 4. 분류 -->
@@ -610,6 +655,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     <div class="header-right">
       <span class="saved"></span>
       <div class="progress-wrap"><div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div><span id="progress-text" class="progress-text"></span></div>
+      <button class="back-btn" onclick="goPrev()">← 이전 (방법 안내)</button>
       <button class="help-btn" onclick="openRules()">규칙 보기</button>
       <button id="sort-submit-btn" class="submit-btn disabled" onclick="finishSorting()">분류 완료 →</button>
     </div>
@@ -620,7 +666,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       <div class="unsorted-box"><h3>미분류 진술문</h3><p class="hint"><span id="unsorted-count"></span>, 끌어서 오른쪽 그룹에 놓으세요</p><div id="unsorted-list"></div></div>
     </div>
     <div class="right-panel">
-      <div class="groups-header"><h3>그룹 (그룹마다 진술문 2개 이상)</h3><button class="add-group-btn" onclick="addGroup()">+ 새 그룹 만들기</button></div>
+      <div class="groups-header"><h3>그룹 (그룹마다 진술문 2개 이상)</h3><div style="display:flex;gap:6px"><button id="undo-btn" class="undo-btn" onclick="undo()" disabled>↶ 되돌리기</button><button class="add-group-btn" onclick="addGroup()">+ 새 그룹 만들기</button></div></div>
       <div id="groups-area"></div>
     </div>
   </div>
@@ -643,6 +689,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 <!-- 5. 평정 안내 -->
 <div id="rating-intro-screen" class="screen-wrap" style="display:none">
 <div class="screen-box">
+  <button class="top-back" onclick="goPrev()">← 이전</button>
   <h2>분류를 마쳤습니다</h2>
   <p class="sub">이어서 평정을 진행합니다. 분류 결과는 저장되었습니다.</p>
   <div class="info-box">
@@ -652,20 +699,21 @@ document.addEventListener("DOMContentLoaded",()=>{
     <p style="margin-top:6px">진술문은 무작위 순서로 한 쪽에 10개씩 나옵니다. 오래 고민하지 말고 떠오르는 대로 응답해 주세요.</p>
   </div>
   <button class="btn-primary btn-green" onclick="show('rating')">평정 시작하기 →</button>
-  <button class="btn-line" onclick="backToSorting()">← 분류 다시 보기</button>
+  <p style="font-size:12px;color:#64748B;margin-top:10px;line-height:1.6">평정 도중에도 위쪽 [← 이전] 버튼이나 휴대폰의 뒤로 가기로 이 화면과 분류 화면으로 돌아갈 수 있습니다. 이미 고른 점수는 그대로 남습니다.</p>
+  <button class="btn-line" onclick="backToSorting()">← 이전 (분류 다시 보기)</button>
 </div></div>
 
 <!-- 6. 평정 -->
 <div id="rating-screen" style="display:none">
   <div class="header"><div class="header-inner">
     <div class="header-left">평정 <span>참여자: <span id="r-pid"></span></span></div>
-    <div class="header-right"><span class="saved"></span><div class="progress-wrap"><div class="progress-bar"><div id="r-progress-fill" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#667EEA,#764BA2)"></div></div><span id="r-progress-text" class="progress-text"></span></div></div>
+    <div class="header-right"><button class="back-btn" onclick="goPrev()">← 이전</button><span class="saved"></span><div class="progress-wrap"><div class="progress-bar"><div id="r-progress-fill" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#667EEA,#764BA2)"></div></div><span id="r-progress-text" class="progress-text"></span></div></div>
   </div></div>
   <div class="rating-container">
     <div class="rating-guide"><p id="r-guide"></p></div>
     <div id="rating-list"></div>
     <div class="rating-nav">
-      <button id="r-prev-btn" class="prev-btn" onclick="rPrev()">← 이전</button>
+      <button id="r-prev-btn" class="prev-btn" onclick="rPrev()">← 이전 쪽</button>
       <span id="rating-page-info" class="rating-page-info"></span>
       <button id="r-next-btn" class="next-btn" onclick="rNext()">다음 →</button>
       <button id="r-final-btn" class="final-btn" onclick="submitAll()" style="display:none">제출하기 ✓</button>
