@@ -100,6 +100,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:#F1F5F9;}
 .group-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;}
 .group-del{background:none;border:none;cursor:pointer;font-size:13px;color:#94A3B8;padding:0;margin-left:6px;}
 .group-empty{padding:16px;text-align:center;color:#94A3B8;font-size:11px;border-radius:6px;border:1px dashed #CBD5E1;}
+.group-card.dup{outline:2px solid #EF4444;background:#FEF2F2;}
 .group-card{border-radius:7px;padding:7px 9px;margin-bottom:3px;cursor:grab;font-size:12px;line-height:1.5;user-select:none;border:1px solid #EAECF0;background:#FAFBFC;color:#475569;}
 .group-warning{font-size:11px;color:#DC2626;margin-bottom:6px;font-weight:600;line-height:1.5;}
 .no-groups{background:#fff;border-radius:14px;padding:40px 20px;text-align:center;border:2px dashed #CBD5E1;}
@@ -371,7 +372,9 @@ function resume(yes){
 const isDefault=n=>/^그룹\s*\d*$/.test(n.trim());
 const tooFew=g=>g.cards.length>0&&g.cards.length<MIN_PER_GROUP;
 function problems(){
+  repairState();
   const p=[];
+  if(DUP.size)p.push(`두 그룹 이상에 들어간 진술문 ${DUP.size}개 (빨간 테두리로 표시됨. 그 진술문을 한 번 눌러 들어갈 그룹으로 옮기면 한 곳에만 남습니다)`);
   if(S.unsorted.length>0)p.push(`아직 분류하지 않은 진술문 ${S.unsorted.length}개`);
   const empty=S.groups.filter(g=>g.cards.length===0).length; if(empty)p.push(`비어 있는 그룹 ${empty}개 (진술문을 넣거나 ✕로 지워 주세요)`);
   const few=S.groups.filter(tooFew).length; if(few)p.push(`진술문이 1개뿐인 그룹 ${few}개 (진술문을 ${MIN_PER_GROUP}개 이상 넣어 주세요)`);
@@ -403,7 +406,7 @@ function render(){
       if(unnamed)warn+=`<div class="group-warning">그룹 이름을 붙여 주세요 (이름을 누르면 수정할 수 있습니다)</div>`;
       if(few)warn+=`<div class="group-warning">진술문이 1개뿐입니다. 비슷한 진술문을 1개 이상 더 넣거나, 이 진술문을 가장 가까운 다른 그룹으로 옮겨 주세요.</div>`;
       const cards=g.cards.length===0?`<div class="group-empty" style="background:${c.bg};border-color:${c.border}">여기에 진술문을 놓으세요</div>`:
-        g.cards.map(cd=>`<div class="group-card ${sel===cd?'selected':''}" draggable="true" ondragstart="dStart('${cd}',${gi})" onclick="pick('${cd}',${gi})">${esc(TEXT[cd])}</div>`).join("");
+        g.cards.map(cd=>`<div class="group-card ${sel===cd?'selected':''} ${DUP.has(cd)?'dup':''}" draggable="true" ondragstart="dStart('${cd}',${gi})" onclick="pick('${cd}',${gi})">${esc(TEXT[cd])}</div>`).join("");
       return `<div class="group-box ${(unnamed||few)?'warn':''}" style="border-top-color:${(unnamed||few)?'#EF4444':c.border}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="this.classList.remove('drag-over');dropTo(${gi})"><div class="group-header">${nh}<span class="group-tag" style="background:${c.tag};color:${c.text}">${g.cards.length}</span><button class="group-del" onclick="delGroup(${gi})" title="그룹 지우기">✕</button></div>${warn}${cards}</div>`;
     }).join("")+'</div>';
   }
@@ -422,17 +425,35 @@ function renderMenu(){
   const t=TEXT[sel];document.getElementById("mobile-card-label").textContent=t.length>40?t.slice(0,40)+"…":t;
   document.getElementById("mobile-btns").innerHTML=b;
 }
-function dStart(c,from){dragCode=c;dragFrom=from;}
+function dStart(c,from){dragCode=c;dragFrom=from;sel=null;selFrom=null;}
 function dropTo(gi){if(dragCode===null)return;if(dragFrom===gi){dragCode=null;return;}move(dragCode,dragFrom,gi);dragCode=null;render();}
 function dropUnsorted(){if(dragCode===null||dragFrom===-1){dragCode=null;return;}move(dragCode,dragFrom,-1);dragCode=null;render();}
 function pick(c,from){if(sel===c){unpick();return;}sel=c;selFrom=from;render();}
 function unpick(){sel=null;selFrom=null;render();}
-function moveSel(to,noSnap){move(sel,selFrom,to,noSnap);sel=null;selFrom=null;render();}
+function moveSel(to,noSnap){if(sel===null){render();return;}move(sel,selFrom,to,noSnap);sel=null;selFrom=null;render();}
 function newGroupWithSel(){snap();S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});moveSel(S.groups.length-1,true);}
 function move(c,from,to,noSnap){
+  if(c===null||c===undefined||!TEXT[c])return;
   if(!noSnap)snap();
-  if(from===-1)S.unsorted=S.unsorted.filter(x=>x!==c); else S.groups[from].cards=S.groups[from].cards.filter(x=>x!==c);
-  if(to===-1)S.unsorted.push(c); else S.groups[to].cards.push(c);
+  /* 어디에 있든 모두 빼고 한 곳에만 넣는다(진술문이 두 곳에 들어가는 문제 방지) */
+  S.unsorted=S.unsorted.filter(x=>x!==c);
+  S.groups.forEach(g=>{g.cards=g.cards.filter(x=>x!==c);});
+  if(to===-1||!S.groups[to])S.unsorted.push(c); else S.groups[to].cards.push(c);
+}
+/* 진술문이 정확히 한 번씩 있는지 점검하고, 판단이 필요 없는 문제는 바로잡는다 */
+let DUP=new Set();
+function repairState(){
+  if(!S||!S.groups)return;
+  S.groups.forEach(g=>{const seen=new Set();g.cards=g.cards.filter(c=>TEXT[c]&&!seen.has(c)&&seen.add(c));});
+  const inGroups=new Set();S.groups.forEach(g=>g.cards.forEach(c=>inGroups.add(c)));
+  const seenU=new Set();S.unsorted=S.unsorted.filter(c=>TEXT[c]&&!inGroups.has(c)&&!seenU.has(c)&&seenU.add(c));
+  STATEMENTS.forEach(s=>{if(!inGroups.has(s.code)&&!seenU.has(s.code))S.unsorted.push(s.code);});
+  const cnt={};S.groups.forEach(g=>g.cards.forEach(c=>cnt[c]=(cnt[c]||0)+1));
+  DUP=new Set(Object.keys(cnt).filter(c=>cnt[c]>1));
+}
+function exactlyOnce(){
+  const cnt={};S.unsorted.forEach(c=>cnt[c]=(cnt[c]||0)+1);S.groups.forEach(g=>g.cards.forEach(c=>cnt[c]=(cnt[c]||0)+1));
+  return STATEMENTS.every(s=>cnt[s.code]===1)&&Object.keys(cnt).length===STATEMENTS.length;
 }
 function addGroup(){snap();S.groups.push({name:"그룹 "+(S.groups.length+1),cards:[]});render();}
 function beginRename(i){editingIdx=i;editingValue=isDefault(S.groups[i].name)?"":S.groups[i].name;render();}
@@ -443,6 +464,7 @@ function closeRules(){document.getElementById("rules-modal").style.display="none
 
 function finishSorting(){
   const p=problems(); if(p.length){alert("다음을 확인해 주세요.\n\n- "+p.join("\n- "));return;}
+  if(!exactlyOnce()){alert("진술문 "+STATEMENTS.length+"개가 한 번씩만 분류되었는지 확인하지 못했습니다. 분류 화면을 다시 확인해 주세요.");render();return;}
   S.groups=S.groups.filter(g=>g.cards.length>0);
   S.sortDoneAt=new Date().toISOString();
   if(!S.ratingOrder.length){S.ratingOrder=shuffle(STATEMENTS.map(s=>s.code));S.ratingPage=0;}
@@ -488,6 +510,7 @@ function payload(type){
     startedAt:S.startedAt,sortDoneAt:S.sortDoneAt,submittedAt:new Date().toISOString(),
     ratingDims:RATING_DIMS.map(d=>({key:d.key,label:d.label,question:d.q})),
     groups:S.groups.map((g,i)=>({index:i+1,name:g.name,cards:g.cards.map(c=>({code:c,text:TEXT[c]}))})),
+    check:{nStatements:STATEMENTS.length,nCardsInGroups:S.groups.reduce((a,g)=>a+g.cards.length,0),nUnique:new Set(S.groups.flatMap(g=>g.cards)).size,unsorted:S.unsorted.length},
     ratings:type==="full"?S.ratingOrder.map(c=>Object.assign({code:c,text:TEXT[c]},Object.fromEntries(RATING_DIMS.map(d=>[d.key,S.ratings[c][d.key]])))):[]};
 }
 async function receiptCode(p){
@@ -504,7 +527,7 @@ async function sendQuiet(type){
 }
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function submitAll(){
-  if(problems().length){alert("분류에 확인할 곳이 있습니다. 분류 화면으로 이동합니다.");show("sorting");return;}
+  if(problems().length||!exactlyOnce()){alert("분류에 확인할 곳이 있습니다. 분류 화면으로 이동합니다.");show("sorting");return;}
   if(!S.ratingOrder.every(complete)){const miss=S.ratingOrder.findIndex(c=>!complete(c));S.ratingPage=Math.floor(miss/ITEMS_PER_PAGE);save();renderRating();alert("응답하지 않은 문항이 있습니다. 빠진 곳으로 이동합니다.");flashMissing();return;}
   const p=payload("full"); p.receiptCode=await receiptCode(p);
   S.lastSubmit=p; save();
